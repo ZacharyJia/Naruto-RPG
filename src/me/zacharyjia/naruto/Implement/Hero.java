@@ -104,4 +104,8 @@ public class Hero implements ISprite, IShowable {
     public ImageView getImageView() {
         return imageView;
     }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 }

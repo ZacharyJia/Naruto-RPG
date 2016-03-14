@@ -3,8 +3,8 @@ package me.zacharyjia.naruto;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import me.zacharyjia.naruto.Implement.Hero;
+import me.zacharyjia.naruto.Interface.ISprite;
 import me.zacharyjia.naruto.utils.CharacterImageLoader;
 import tiled.core.*;
 import tiled.io.TMXMapReader;
@@ -44,6 +45,7 @@ public class Controller implements Initializable {
     static int curImage = 0;
 
     Hero hero;
+    private long lastKeyEvent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,9 +109,14 @@ public class Controller implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                pane.getChildren().clear();
-                pane.getChildren().add(canvas);
+
+
+                pane.getChildren().remove(btn_exit);
+                pane.getChildren().remove(btn_start);
                 pane.getChildren().add(iv_hero);
+
+                pane.requestFocus();
+
             }
         });
 
@@ -117,6 +124,33 @@ public class Controller implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 System.exit(0);
+            }
+        });
+
+        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (System.currentTimeMillis() - lastKeyEvent < 80) {
+                    return;
+                }
+                lastKeyEvent = System.currentTimeMillis();
+                KeyCode code = event.getCode();
+                if(KeyCode.UP.equals(code)) {
+                    hero.setDirection(ISprite.Direction.UP);
+                    hero.move(0, -1);
+                }
+                else if (KeyCode.DOWN.equals(code)) {
+                    hero.setDirection(ISprite.Direction.DOWN);
+                    hero.move(0, 1);
+                }
+                else if (KeyCode.LEFT.equals(code)) {
+                    hero.setDirection(ISprite.Direction.LEFT);
+                    hero.move(-1, 0);
+                }
+                else if (KeyCode.RIGHT.equals(code)) {
+                    hero.setDirection(ISprite.Direction.RIGHT);
+                    hero.move(1, 0);
+                }
             }
         });
 
