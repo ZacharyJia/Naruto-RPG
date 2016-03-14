@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.Interface;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
@@ -7,7 +8,9 @@ import javafx.scene.layout.Pane;
  */
 public interface IShowable {
 
-    public void show(Pane pane);
-    public void disappear(Pane pane);
+    void show();
+    void disappear();
+
+    ImageView getImageView();
 
 }

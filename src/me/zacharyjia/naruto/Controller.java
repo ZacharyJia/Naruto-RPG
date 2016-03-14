@@ -13,15 +13,19 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import me.zacharyjia.naruto.Implement.Hero;
 import me.zacharyjia.naruto.utils.CharacterImageLoader;
 import tiled.core.*;
 import tiled.io.TMXMapReader;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,10 +43,18 @@ public class Controller implements Initializable {
 
     static int curImage = 0;
 
+    Hero hero;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+            }
+        });
 
         final Image img;
         try {
@@ -83,33 +95,21 @@ public class Controller implements Initializable {
             @Override
             public void handle(MouseEvent event) {
 
+                drawMap(gc, map);
+
                 final Image[][] images;
                 try {
                     images = CharacterImageLoader.getImages("res/characters/naruto.png");
-                    iv_hero.setImage(images[0][0]);
-
-                    final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            if (curImage == 4) curImage = 0;
-                            iv_hero.setImage(images[3][curImage]);
-                            curImage++;
-
-                        }
-                    }));
-
-                    timeline.setCycleCount(Timeline.INDEFINITE);
-                    timeline.play();
-
-
+                    hero = new Hero(images);
+                    iv_hero = hero.getImageView();
+                    hero.show();
+                    hero.move(1, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 pane.getChildren().clear();
                 pane.getChildren().add(canvas);
                 pane.getChildren().add(iv_hero);
-                drawMap(gc, map);
-
             }
         });
 
@@ -119,8 +119,6 @@ public class Controller implements Initializable {
                 System.exit(0);
             }
         });
-
-
 
     }
 
@@ -144,6 +142,16 @@ public class Controller implements Initializable {
                     gc.drawImage(writableImage, j * 32, i * 32);
                 }
             }
+        }
+    }
+
+    @FXML
+    void onKeyPressed(KeyEvent keyEvent) {
+        KeyCode keyCode = keyEvent.getCode();
+        System.out.println("key pressed!");
+        if (keyCode.equals(KeyCode.DOWN)) {
+            hero.move(0, 1);
+            System.out.println("down is pressed!");
         }
     }
 }
