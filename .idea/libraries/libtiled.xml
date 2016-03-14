@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="libtiled">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/libtiled.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
