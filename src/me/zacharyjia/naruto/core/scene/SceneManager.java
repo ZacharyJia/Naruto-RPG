@@ -1,19 +1,8 @@
-package me.zacharyjia.naruto;
+package me.zacharyjia.naruto.core.scene;
 
-import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import me.zacharyjia.naruto.Implement.NMap;
-import tiled.core.Map;
-import tiled.core.Tile;
-import tiled.core.TileLayer;
-
-import java.awt.image.BufferedImage;
 
 /**
  * Created by jia19 on 2016/3/14.

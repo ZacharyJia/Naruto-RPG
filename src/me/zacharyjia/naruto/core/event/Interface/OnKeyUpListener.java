@@ -1,6 +1,5 @@
-package me.zacharyjia.naruto.Interface;
+package me.zacharyjia.naruto.core.event.Interface;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**

@@ -7,23 +7,21 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import me.zacharyjia.naruto.Implement.Hero;
-import me.zacharyjia.naruto.Implement.NMap;
-import me.zacharyjia.naruto.Interface.ISprite;
-import me.zacharyjia.naruto.Interface.OnKeyDownListener;
-import me.zacharyjia.naruto.utils.CharacterImageLoader;
+import me.zacharyjia.naruto.core.component.Implement.Hero;
+import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.component.Interface.ISprite;
+import me.zacharyjia.naruto.core.scene.NScene;
+import me.zacharyjia.naruto.core.scene.SceneManager;
+import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {

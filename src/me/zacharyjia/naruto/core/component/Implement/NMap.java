@@ -1,8 +1,5 @@
-package me.zacharyjia.naruto.Implement;
+package me.zacharyjia.naruto.core.component.Implement;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import me.zacharyjia.naruto.Interface.IShowable;
 import tiled.core.Map;
 import tiled.core.MapLayer;
 import tiled.core.TileLayer;
@@ -30,7 +27,6 @@ public class NMap{
                 return layer;
             }
         }
-
         return null;
     }
 

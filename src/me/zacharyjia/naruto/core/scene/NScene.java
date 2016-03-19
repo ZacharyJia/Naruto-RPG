@@ -1,6 +1,5 @@
-package me.zacharyjia.naruto;
+package me.zacharyjia.naruto.core.scene;
 
-import com.sun.javafx.fxml.builder.JavaFXSceneBuilder;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -10,17 +9,17 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import me.zacharyjia.naruto.Implement.NMap;
-import me.zacharyjia.naruto.Interface.*;
+import me.zacharyjia.naruto.Config;
+import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.component.Interface.*;
+import me.zacharyjia.naruto.core.event.Interface.*;
 import tiled.core.Map;
-import tiled.core.MapLayer;
 import tiled.core.Tile;
 import tiled.core.TileLayer;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by jia19 on 2016/3/14.
