@@ -13,11 +13,13 @@ import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.Implement.NMap;
 import me.zacharyjia.naruto.Interface.*;
 import tiled.core.Map;
+import tiled.core.MapLayer;
 import tiled.core.Tile;
 import tiled.core.TileLayer;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -201,6 +203,7 @@ public class NScene {
 
     private void drawMap(GraphicsContext gc, NMap nMap) {
         Map map = nMap.getMap();
+        List<TileLayer> layers = nMap.getLayerList();
         for (int l = 0; l < map.getLayerCount(); l++) {
             TileLayer layer = (TileLayer) map.getLayer(l);
             int x = layer.getWidth();
