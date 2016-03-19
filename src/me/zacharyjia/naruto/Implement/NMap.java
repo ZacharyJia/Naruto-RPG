@@ -8,22 +8,14 @@ import tiled.core.Map;
 /**
  * Created by jia19 on 2016/3/14.
  */
-public class NMap implements IShowable {
-
+public class NMap{
     private Map map;
 
-    @Override
-    public void show() {
-
+    public NMap(Map map) {
+        this.map = map;
     }
 
-    @Override
-    public void disappear() {
-
-    }
-
-    @Override
-    public ImageView getImageView() {
-        return null;
+    public Map getMap() {
+        return map;
     }
 }

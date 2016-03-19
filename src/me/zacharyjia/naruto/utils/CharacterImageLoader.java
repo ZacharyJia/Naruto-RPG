@@ -18,8 +18,14 @@ import java.io.IOException;
  */
 public class CharacterImageLoader {
 
-    public static Image[][] getImages(String imageFile) throws IOException{
-        BufferedImage bufferedImage = ImageIO.read(new File(imageFile));
+    public static Image[][] getImages(String imageFile) {
+
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(new File(imageFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int width = bufferedImage.getWidth() / 4;
         int height = bufferedImage.getHeight() / 4;
         Image[][] images = new Image[4][4];

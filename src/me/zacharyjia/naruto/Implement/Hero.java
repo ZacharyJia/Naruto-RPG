@@ -34,6 +34,7 @@ public class Hero implements ISprite, IShowable {
 
     public Hero(Image[][] images) {
         this.images = images;
+
         timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -56,6 +57,7 @@ public class Hero implements ISprite, IShowable {
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     @Override

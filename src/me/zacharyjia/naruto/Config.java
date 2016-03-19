@@ -10,6 +10,8 @@ public class Config {
     private int mapWidth = 32;
     private int mapHeight = 24;
     private int tileSize = 32;
+    private int windowWidth = 1024;
+    private int windowHeight = 768;
 
     public static Config getInstance() {
         return instance;
@@ -31,5 +33,11 @@ public class Config {
         return tileSize;
     }
 
+    public int getWindowWidth() {
+        return windowWidth;
+    }
 
+    public int getWindowHeight() {
+        return windowHeight;
+    }
 }

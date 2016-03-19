@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.Interface;
 
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 

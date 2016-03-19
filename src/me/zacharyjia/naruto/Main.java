@@ -5,8 +5,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import me.zacharyjia.naruto.Implement.NMap;
+import tiled.core.Map;
+import tiled.io.TMXMapReader;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Main extends Application {
 
@@ -18,18 +28,10 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-
-            }
-        });
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }
