@@ -47,4 +47,29 @@ public class NMap{
         }
         return null;
     }
+
+    public MapLayer getUserTile(String name) {
+        if (name == null) {
+            return null;
+        }
+        for (MapLayer layer : map.getLayers()) {
+            if (name.equals(layer.getName()) && layer instanceof ObjectGroup) {
+                return (ObjectGroup)layer;
+            }
+        }
+        return null;
+    }
+
+    public List<MapLayer> getUserTileList(String prefix) {
+        List<MapLayer> list = new ArrayList<>();
+        if (prefix == null) {
+            return list;
+        }
+        for (MapLayer layer: map.getLayers()) {
+            if (layer.getName().startsWith(prefix) && layer instanceof TileLayer) {
+                list.add(layer);
+            }
+        }
+        return list;
+    }
 }

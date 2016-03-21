@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.core.scene;
 
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -61,23 +62,41 @@ public class SceneManager {
                 currentScene.onMouseUp(event);
             }
         });
-
     }
 
     public void switchScene(NScene scene) {
-        if (currentScene != null) {
-            currentScene.disappear();
-        }
         if (scene == null) {
             System.out.println("Scene is null!");
             return;
+        }
+        if (currentScene != null) {
+            currentScene.disappear();
         }
         currentScene = scene;
         scene.show(pane, canvas);
     }
 
+    public void switchScene(String sceneClassName) {
+        if(sceneClassName == null) {
+            System.out.println("Scene Class Name is null!");
+        }
 
+        try {
+            currentScene = (NScene) Class.forName(sceneClassName).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        if (currentScene != null) {
+            currentScene.disappear();
+        }
 
+        currentScene.show(pane, canvas);
+
+    }
 
 }

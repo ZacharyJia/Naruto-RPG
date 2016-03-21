@@ -13,12 +13,15 @@ public class Config {
     private int windowWidth = 1024;
     private int windowHeight = 768;
 
+    private String startScene = "me.zacharyjia.naruto.game.StartScene";
+
     public static Config getInstance() {
         return instance;
     }
 
     private Config(){
 
+        //从配置文件加载启动场景
     }
 
     public int getMapWidth() {
@@ -39,5 +42,9 @@ public class Config {
 
     public int getWindowHeight() {
         return windowHeight;
+    }
+
+    public String getStartScene() {
+        return startScene;
     }
 }

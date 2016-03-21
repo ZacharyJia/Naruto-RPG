@@ -16,6 +16,7 @@ import me.zacharyjia.naruto.core.component.Interface.ISprite;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
+import me.zacharyjia.naruto.game.StartScene;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
 
@@ -45,78 +46,22 @@ public class Controller implements Initializable {
     }
 
     public void start() {
-        NScene scene = new NScene();
+
+        Config config = Config.getInstance();
+        StartScene scene = null;
         try {
-            scene.setBackground(new Image(new FileInputStream("res/image/splash.jpg")));
-        } catch (FileNotFoundException e) {
+            scene = (StartScene) Class.forName(config.getStartScene()).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        Button btn_start = new Button("开始游戏");
-        btn_start.setFont(new Font(36));
-        btn_start.setLayoutX(420);
-        btn_start.setLayoutY(300);
-        scene.addNode(btn_start);
-
-        final Button btn_exit = new Button("离开游戏");
-        btn_exit.setFont(new Font(36));
-        btn_exit.setLayoutX(420);
-        btn_exit.setLayoutY(420);
-        scene.addNode(btn_exit);
-
-        Map map = null;
-        try {
-            TMXMapReader reader = new TMXMapReader();
-            map = reader.readMap("res/map/village.tmx");
-            //drawMap(gc, res.map);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (scene != null) {
+            SceneManager.getInstance().switchScene(scene);
         }
-
-        final Map finalMap = map;
-        btn_start.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                NScene scene = new NScene();
-                scene.setMap(new NMap(finalMap));
-
-                Hero hero = new Hero(CharacterImageLoader.getImages("res/characters/naruto.png"));
-                hero.show();
-                scene.addShowable(hero);
-                scene.setOnKeyDownListener(keyEvent -> {
-                    KeyCode keyCode = keyEvent.getCode();
-                    if (keyCode.equals(KeyCode.UP)) {
-                        hero.setDirection(ISprite.Direction.UP);
-                        hero.move(0, -1);
-                    }
-                    else if (keyCode.equals(KeyCode.DOWN)) {
-                        hero.setDirection(ISprite.Direction.DOWN);
-                        hero.move(0, 1);
-                    }
-                    else if (keyCode.equals(KeyCode.LEFT)) {
-                        hero.setDirection(ISprite.Direction.LEFT);
-                        hero.move(-1, 0);
-                    }
-                    else if (keyCode.equals(KeyCode.RIGHT)) {
-                        hero.setDirection(ISprite.Direction.RIGHT);
-                        hero.move(1, 0);
-                    }
-                });
-
-                SceneManager.getInstance().switchScene(scene);
-
-            }
-        });
-
-        btn_exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.exit(0);
-            }
-        });
-
-        SceneManager.getInstance().switchScene(scene);
 
     }
 }

@@ -27,4 +27,19 @@ public class Monster implements ISprite, IShowable{
     public void move(int offsetX, int offsetY) {
 
     }
+
+    @Override
+    public int getX() {
+        return 0;
+    }
+
+    @Override
+    public int getY() {
+        return 0;
+    }
+
+    @Override
+    public void setPosition(int x, int y) {
+
+    }
 }

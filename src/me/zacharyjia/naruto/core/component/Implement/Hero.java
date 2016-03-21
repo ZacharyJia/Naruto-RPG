@@ -92,6 +92,27 @@ public class Hero implements ISprite, IShowable {
     }
 
     @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public void setPosition(int x, int y) {
+        int tileSize = Config.getInstance().getTileSize();
+
+        this.x = x;
+        this.y = y;
+
+        imageView.setLayoutX(tileSize * x);
+        imageView.setLayoutY(tileSize * y);
+    }
+
+    @Override
     public void show() {
         imageView.setVisible(true);
     }

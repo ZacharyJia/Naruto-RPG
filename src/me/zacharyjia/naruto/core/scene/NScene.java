@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by jia19 on 2016/3/14.
  */
-public class NScene {
+public abstract class NScene {
     //键盘鼠标事件监听器
     private OnKeyDownListener onKeyDownListener = null;
     private OnKeyUpListener onKeyUpListener = null;
@@ -43,6 +43,11 @@ public class NScene {
     private boolean isShow = false;
 
     public NScene() {
+        init();
+
+    }
+
+    public void init() {
 
     }
 
@@ -203,8 +208,7 @@ public class NScene {
     private void drawMap(GraphicsContext gc, NMap nMap) {
         Map map = nMap.getMap();
         List<TileLayer> layers = nMap.getLayerList();
-        for (int l = 0; l < map.getLayerCount(); l++) {
-            TileLayer layer = (TileLayer) map.getLayer(l);
+        for (TileLayer layer : layers) {
             int x = layer.getWidth();
             int y = layer.getHeight();
             for (int i = 0; i < y; i++) {
