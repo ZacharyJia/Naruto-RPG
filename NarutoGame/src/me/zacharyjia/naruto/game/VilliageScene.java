@@ -1,9 +1,9 @@
 package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
+import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
-import me.zacharyjia.naruto.core.component.Interface.ISprite;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
@@ -37,19 +37,19 @@ public class VilliageScene extends NScene {
         setOnKeyDownListener(keyEvent -> {
             KeyCode keyCode = keyEvent.getCode();
             if (keyCode.equals(KeyCode.UP)) {
-                hero.setDirection(ISprite.Direction.UP);
+                hero.setDirection(AbstractSprite.Direction.UP);
                 hero.move(0, -1);
             }
             else if (keyCode.equals(KeyCode.DOWN)) {
-                hero.setDirection(ISprite.Direction.DOWN);
+                hero.setDirection(AbstractSprite.Direction.DOWN);
                 hero.move(0, 1);
             }
             else if (keyCode.equals(KeyCode.LEFT)) {
-                hero.setDirection(ISprite.Direction.LEFT);
+                hero.setDirection(AbstractSprite.Direction.LEFT);
                 hero.move(-1, 0);
             }
             else if (keyCode.equals(KeyCode.RIGHT)) {
-                hero.setDirection(ISprite.Direction.RIGHT);
+                hero.setDirection(AbstractSprite.Direction.RIGHT);
                 hero.move(1, 0);
             }
         });

@@ -1,6 +1,5 @@
 package me.zacharyjia.naruto.core.utils;
 
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;

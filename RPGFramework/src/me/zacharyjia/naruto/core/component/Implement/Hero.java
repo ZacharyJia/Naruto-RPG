@@ -5,30 +5,20 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import me.zacharyjia.naruto.Config;
-import me.zacharyjia.naruto.core.component.Interface.IShowable;
-import me.zacharyjia.naruto.core.component.Interface.ISprite;
+import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 
 /**
  * Created by jia19 on 2016/3/11.
  */
-public class Hero implements ISprite, IShowable {
+public class Hero extends AbstractSprite {
 
     private int life; //生命值
     private int chakra; //查克拉
 
-    private Direction direction = Direction.UP; //当前方向
-    private boolean isMove = false;
-
-    private int x, y;//当前位置
-
     private Timeline timeline;
 
-    private Image images[][];
-
-    private ImageView imageView = new ImageView();
     private int currentImageIndex = 0;
 
     public Hero(Image[][] images) {
@@ -84,50 +74,10 @@ public class Hero implements ISprite, IShowable {
         else if (y < 0) {
             y = 0;
         }
-
         imageView.setLayoutX(tileSize * x);
         imageView.setLayoutY(tileSize * y);
         timeline.play();
-
     }
 
-    @Override
-    public int getX() {
-        return x;
-    }
 
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public void setPosition(int x, int y) {
-        int tileSize = Config.getInstance().getTileSize();
-
-        this.x = x;
-        this.y = y;
-
-        imageView.setLayoutX(tileSize * x);
-        imageView.setLayoutY(tileSize * y);
-    }
-
-    @Override
-    public void show() {
-        imageView.setVisible(true);
-    }
-
-    @Override
-    public void disappear() {
-        imageView.setVisible(false);
-    }
-
-    @Override
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
 }
