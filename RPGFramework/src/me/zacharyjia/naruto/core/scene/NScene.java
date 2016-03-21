@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.Config;
+import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
 import me.zacharyjia.naruto.core.event.Interface.*;
 import me.zacharyjia.naruto.core.component.Interface.IShowable;
@@ -42,15 +43,20 @@ public abstract class NScene {
     private Canvas canvas;
     private boolean isShow = false;
 
-    public NScene() {
-        init();
-
-    }
+    private Intent intent = null;
 
     public abstract void init();
 
     public void onFinish(){
 
+    }
+
+    public Intent getIntent() {
+        return intent;
+    }
+
+    public void setIntent(Intent intent) {
+        this.intent = intent;
     }
 
     public Image getBackground() {
@@ -205,8 +211,8 @@ public abstract class NScene {
         SceneManager.getInstance().popScene(this);
     }
 
-    final public void startScene(Class<NScene> sceneClass) {
-        SceneManager.getInstance().pushScene(sceneClass);
+    final public void startScene(Intent intent) {
+        SceneManager.getInstance().pushScene(intent);
     }
 
     public void update() {

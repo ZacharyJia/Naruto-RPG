@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
+import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
@@ -39,7 +40,9 @@ public class StartScene extends NScene {
 
 
         btn_start.setOnMouseClicked(event -> {
-            SceneManager.getInstance().pushScene(VilliageScene.class);
+            Intent intent = new Intent(VilliageScene.class);
+            intent.putExtra("key", "Hello!!!");
+            SceneManager.getInstance().pushScene(intent);
         });
 
         btn_exit.setOnMouseClicked(event -> System.exit(0));

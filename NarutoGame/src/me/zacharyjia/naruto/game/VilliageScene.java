@@ -1,6 +1,7 @@
 package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
+import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
@@ -17,6 +18,9 @@ public class VilliageScene extends NScene {
 
     @Override
     public void init() {
+
+        Intent intent = getIntent();
+        System.out.println(intent.getExtra("key", ""));
 
         Map map = null;
         try {

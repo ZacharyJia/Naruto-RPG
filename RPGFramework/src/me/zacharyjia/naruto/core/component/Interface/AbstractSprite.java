@@ -24,6 +24,10 @@ public abstract class AbstractSprite implements IShowable {
         UP, DOWN, LEFT, RIGHT
     }
 
+    public void setImage(Image[][] images) {
+        this.images = images;
+    }
+
     @Override
     public void show() {
         imageView.setVisible(true);
@@ -62,6 +66,5 @@ public abstract class AbstractSprite implements IShowable {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-
 
 }

@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.core.Exception.CallerIsNotPeekException;
 import me.zacharyjia.naruto.core.Exception.NotSceneClassException;
 import me.zacharyjia.naruto.core.Exception.SceneNullException;
+import me.zacharyjia.naruto.core.Intent;
 
 import java.util.Stack;
 
@@ -69,7 +70,8 @@ public class SceneManager {
         });
     }
 
-    public void pushScene(Class sceneClass) {
+    public void pushScene(Intent intent) {
+        Class sceneClass = intent.getTarget();
         if (sceneClass == null) {
             throw new SceneNullException("Scene is null!");
         }
@@ -78,10 +80,11 @@ public class SceneManager {
                 throw new NotSceneClassException("The class is not a scene class!");
             }
         }
-
         NScene scene = null;
         try {
             scene = (NScene)sceneClass.newInstance();
+            scene.setIntent(intent);
+            scene.init();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -117,7 +120,7 @@ public class SceneManager {
             System.exit(0);
         }
     }
-
+    /*
     public void switchScene(NScene scene) {
         if (scene == null) {
             throw new SceneNullException("Scene is null!");
@@ -146,5 +149,5 @@ public class SceneManager {
         }
         switchScene(scene);
     }
-
+    */
 }

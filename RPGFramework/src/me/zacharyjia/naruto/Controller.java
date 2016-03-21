@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
+import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 
 import java.net.URL;
@@ -33,7 +34,9 @@ public class Controller implements Initializable {
 
         Config config = Config.getInstance();
         try {
-            SceneManager.getInstance().pushScene(Class.forName(config.getStartScene()));
+            Class startClass = Class.forName(config.getStartScene());
+            Intent intent = new Intent(startClass);
+            SceneManager.getInstance().pushScene(intent);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
