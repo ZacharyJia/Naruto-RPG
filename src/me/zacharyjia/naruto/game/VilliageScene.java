@@ -53,5 +53,10 @@ public class VilliageScene extends NScene {
             }
         });
 
+        this.setOnMouseClickListener(event -> {
+            System.out.println("clicked!");
+            this.finish();
+        });
+
     }
 }

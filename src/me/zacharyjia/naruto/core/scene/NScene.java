@@ -2,6 +2,7 @@ package me.zacharyjia.naruto.core.scene;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -47,7 +48,9 @@ public abstract class NScene {
 
     }
 
-    public void init() {
+    public abstract void init();
+
+    public void onFinish(){
 
     }
 
@@ -197,6 +200,14 @@ public abstract class NScene {
         this.pane = null;
         this.canvas = null;
         isShow = false;
+    }
+
+    final public void finish() {
+        SceneManager.getInstance().popScene(this);
+    }
+
+    final public void startScene(Class<NScene> sceneClass) {
+        SceneManager.getInstance().pushScene(sceneClass);
     }
 
     public void update() {

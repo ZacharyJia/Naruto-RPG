@@ -1,9 +1,16 @@
 package me.zacharyjia.naruto.core.scene;
 
+import com.sun.jmx.snmp.agent.SnmpUserDataFactory;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import me.zacharyjia.naruto.core.Exception.CallerIsNotPeekException;
+import me.zacharyjia.naruto.core.Exception.NotSceneClassException;
+import me.zacharyjia.naruto.core.Exception.SceneNullException;
+import tiled.core.ObjectGroup;
+
+import java.util.Stack;
 
 /**
  * Created by jia19 on 2016/3/14.
@@ -19,6 +26,7 @@ public class SceneManager {
     private static SceneManager instance = new SceneManager();
 
     private NScene currentScene = null;
+    private Stack<NScene> sceneStack = new Stack<>();
 
     private SceneManager(){
     }
@@ -64,10 +72,58 @@ public class SceneManager {
         });
     }
 
+    public void pushScene(Class sceneClass) {
+        if (sceneClass == null) {
+            throw new SceneNullException("Scene is null!");
+        }
+        else {
+            if (!NScene.class.isAssignableFrom(sceneClass)) {
+                throw new NotSceneClassException("The class is not a scene class!");
+            }
+        }
+
+        NScene scene = null;
+        try {
+            scene = (NScene)sceneClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        if (scene != null) {
+            sceneStack.push(scene);
+
+            if (currentScene != null) {
+                currentScene.disappear();
+            }
+            currentScene = scene;
+            scene.show(pane, canvas);
+        }
+    }
+
+    public void popScene(NScene caller) {
+        if (!caller.equals(sceneStack.peek())) {
+            throw new CallerIsNotPeekException("This caller is not the peek scene in scene stack");
+        }
+        currentScene.disappear();
+        currentScene.onFinish();
+        currentScene = null;
+        if (!sceneStack.isEmpty()) {
+            sceneStack.pop();
+        }
+        if (!sceneStack.isEmpty()) {
+            currentScene = sceneStack.peek();
+            currentScene.show(pane, canvas);
+        }
+        else {
+            System.exit(0);
+        }
+    }
+
     public void switchScene(NScene scene) {
         if (scene == null) {
-            System.out.println("Scene is null!");
-            return;
+            throw new SceneNullException("Scene is null!");
         }
         if (currentScene != null) {
             currentScene.disappear();
@@ -81,8 +137,9 @@ public class SceneManager {
             System.out.println("Scene Class Name is null!");
         }
 
+        NScene scene = null;
         try {
-            currentScene = (NScene) Class.forName(sceneClassName).newInstance();
+            scene = (NScene) Class.forName(sceneClassName).newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -90,13 +147,7 @@ public class SceneManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        if (currentScene != null) {
-            currentScene.disappear();
-        }
-
-        currentScene.show(pane, canvas);
-
+        switchScene(scene);
     }
 
 }

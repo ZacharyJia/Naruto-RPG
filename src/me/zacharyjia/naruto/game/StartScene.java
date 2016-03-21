@@ -44,8 +44,7 @@ public class StartScene extends NScene {
 
 
         btn_start.setOnMouseClicked(event -> {
-            VilliageScene scene1 = new VilliageScene();
-            SceneManager.getInstance().switchScene(scene1);
+            SceneManager.getInstance().pushScene(VilliageScene.class);
         });
 
         btn_exit.setOnMouseClicked(event -> System.exit(0));

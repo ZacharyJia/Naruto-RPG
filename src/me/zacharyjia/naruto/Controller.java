@@ -48,19 +48,10 @@ public class Controller implements Initializable {
     public void start() {
 
         Config config = Config.getInstance();
-        StartScene scene = null;
         try {
-            scene = (StartScene) Class.forName(config.getStartScene()).newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            SceneManager.getInstance().pushScene(Class.forName(config.getStartScene()));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-
-        if (scene != null) {
-            SceneManager.getInstance().switchScene(scene);
         }
 
     }
