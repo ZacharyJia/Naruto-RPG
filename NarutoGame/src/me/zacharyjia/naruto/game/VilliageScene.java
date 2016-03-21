@@ -6,6 +6,7 @@ import me.zacharyjia.naruto.core.component.Implement.NMap;
 import me.zacharyjia.naruto.core.component.Interface.ISprite;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
+import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
 
@@ -20,7 +21,7 @@ public class VilliageScene extends NScene {
         Map map = null;
         try {
             TMXMapReader reader = new TMXMapReader();
-            map = reader.readMap("res/map/village.tmx");
+            map = reader.readMap(ResourcesLoader.getInputStream("/res/map/village.tmx"));
             //drawMap(gc, res.map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,7 +31,7 @@ public class VilliageScene extends NScene {
             setMap(new NMap(map));
         }
 
-        Hero hero = new Hero(CharacterImageLoader.getImages("res/characters/naruto.png"));
+        Hero hero = new Hero(CharacterImageLoader.getImages("/res/characters/naruto.png"));
         hero.show();
         addShowable(hero);
         setOnKeyDownListener(keyEvent -> {

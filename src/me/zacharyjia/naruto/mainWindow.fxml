@@ -1,9 +1,0 @@
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.Pane?>
-<Pane fx:controller="me.zacharyjia.naruto.Controller"
-          xmlns:fx="http://javafx.com/fxml" fx:id="pane">
-    <Canvas fx:id="canvas" width="1024" height="768">
-
-    </Canvas>
-
-</Pane>

@@ -2,19 +2,14 @@ package me.zacharyjia.naruto.game;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
-import me.zacharyjia.naruto.core.component.Implement.Hero;
-import me.zacharyjia.naruto.core.component.Implement.NMap;
-import me.zacharyjia.naruto.core.component.Interface.ISprite;
+import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
-import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
-import tiled.core.Map;
-import tiled.io.TMXMapReader;
+import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.net.MalformedURLException;
 
 /**
  * Created by jia19 on 2016/3/21.
@@ -25,8 +20,8 @@ public class StartScene extends NScene {
     public void init() {
 
         try {
-            setBackground(new Image(new FileInputStream("res/image/splash.jpg")));
-        } catch (FileNotFoundException e) {
+            setBackground(new Image(ResourcesLoader.getInputStream("/res/image/splash.jpg")));
+        } catch (ResourcesNotFoundException e) {
             e.printStackTrace();
         }
 

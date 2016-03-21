@@ -3,14 +3,11 @@ package me.zacharyjia.naruto.core.utils;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -22,7 +19,7 @@ public class CharacterImageLoader {
 
         BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageIO.read(new File(imageFile));
+            bufferedImage = ImageIO.read(ResourcesLoader.getInputStream(imageFile));
         } catch (IOException e) {
             e.printStackTrace();
         }

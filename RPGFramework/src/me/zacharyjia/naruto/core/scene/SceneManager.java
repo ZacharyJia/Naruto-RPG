@@ -1,14 +1,11 @@
 package me.zacharyjia.naruto.core.scene;
 
-import com.sun.jmx.snmp.agent.SnmpUserDataFactory;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.core.Exception.CallerIsNotPeekException;
 import me.zacharyjia.naruto.core.Exception.NotSceneClassException;
 import me.zacharyjia.naruto.core.Exception.SceneNullException;
-import tiled.core.ObjectGroup;
 
 import java.util.Stack;
 

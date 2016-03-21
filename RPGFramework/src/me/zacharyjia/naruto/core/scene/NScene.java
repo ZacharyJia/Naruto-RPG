@@ -2,7 +2,6 @@ package me.zacharyjia.naruto.core.scene;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -12,8 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
-import me.zacharyjia.naruto.core.component.Interface.*;
 import me.zacharyjia.naruto.core.event.Interface.*;
+import me.zacharyjia.naruto.core.component.Interface.IShowable;
 import tiled.core.Map;
 import tiled.core.Tile;
 import tiled.core.TileLayer;
