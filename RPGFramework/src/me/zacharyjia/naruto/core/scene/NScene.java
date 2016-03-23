@@ -84,35 +84,50 @@ public abstract class NScene {
     }
 
     public boolean removeChild(IShowable showable) {
-        return showables.remove(showable);
+        boolean result = showables.remove(showable);
+        update();
+        return result;
     }
 
     public IShowable removeChild(int index) {
-        return showables.remove(index);
+        IShowable result = showables.remove(index);
+        update();
+        return result;
     }
 
     public void clearChildren() {
         showables.clear();
+        update();
     }
 
     public void addShowable(IShowable node) {
         showables.add(node);
+        update();
     }
 
     public boolean removeNode(Node node) {
-        return nodes.remove(node);
+        boolean result =  nodes.remove(node);
+        update();
+        return result;
     }
 
     public Node removeNode(int index) {
-        return nodes.remove(index);
+        Node result =  nodes.remove(index);
+        update();
+        return result;
     }
 
     public void clearNode() {
         nodes.clear();
+        update();
+        if (pane != null) {
+            pane.requestFocus();
+        }
     }
 
     public void addNode(Node node) {
         nodes.add(node);
+        update();
     }
 
     public void setOnMouseClickListener(OnMouseClickListener onMouseClickListener) {

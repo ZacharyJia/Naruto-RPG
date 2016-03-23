@@ -5,7 +5,7 @@ package me.zacharyjia.naruto;
  */
 public class Config {
 
-    private static Config instance = new Config();
+    private static Config instance = null;
 
     private int mapWidth = 32;
     private int mapHeight = 24;
@@ -16,6 +16,13 @@ public class Config {
     private String startScene = "me.zacharyjia.naruto.game.StartScene";
 
     public static Config getInstance() {
+        if (instance == null) {
+            synchronized (Config.class) {
+                if (instance == null) {
+                    instance = new Config();
+                }
+            }
+        }
         return instance;
     }
 

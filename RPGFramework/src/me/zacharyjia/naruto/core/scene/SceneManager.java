@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.core.scene;
 
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -15,13 +16,14 @@ import java.util.Stack;
  */
 public class SceneManager {
 
+    private static SceneManager instance = null;
+
     private Pane pane;
     private Canvas canvas;
     private GraphicsContext gc;
 
     private boolean launched = false;
 
-    private static SceneManager instance = new SceneManager();
 
     private NScene currentScene = null;
     private Stack<NScene> sceneStack = new Stack<>();
@@ -30,6 +32,13 @@ public class SceneManager {
     }
 
     public static SceneManager getInstance() {
+        if (instance == null) {
+            synchronized (SceneManager.class) {
+                if (instance == null) {
+                    instance = new SceneManager();
+                }
+            }
+        }
         return instance;
     }
 
