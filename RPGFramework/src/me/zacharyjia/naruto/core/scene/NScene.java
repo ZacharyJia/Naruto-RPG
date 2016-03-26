@@ -47,6 +47,8 @@ public abstract class NScene {
 
     public abstract void init();
 
+    public void showFinish(){}
+
     public void onFinish(){
 
     }
@@ -190,6 +192,9 @@ public abstract class NScene {
         }
     }
 
+    public OnMouseClickListener getOnMouseClickListener() {
+        return this.onMouseClickListener;
+    }
 
     public void show(Pane pane, Canvas canvas) {
 
@@ -215,6 +220,8 @@ public abstract class NScene {
         for (Node node : nodes) {
             pane.getChildren().add(node);
         }
+
+        showFinish();
     }
     public void disappear() {
         this.pane = null;

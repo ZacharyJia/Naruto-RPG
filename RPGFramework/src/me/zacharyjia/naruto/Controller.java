@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.component.Implement.TalkBox;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 
 import java.net.URL;
@@ -19,6 +20,7 @@ public class Controller implements Initializable {
     public final void initialize(URL location, ResourceBundle resources) {
 
         SceneManager.getInstance().init(pane, canvas);
+        TalkBox.getInstance().setPane(pane);
         start();
 
         /*

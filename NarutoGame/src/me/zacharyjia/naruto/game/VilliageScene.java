@@ -1,15 +1,21 @@
 package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.component.Implement.TalkBox;
+import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.event.Interface.OnMouseClickListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
+
+import java.util.ArrayList;
 
 /**
  * Created by jia19 on 2016/3/21.
@@ -21,6 +27,7 @@ public class VilliageScene extends NScene {
 
         Intent intent = getIntent();
         System.out.println(intent.getExtra("key", ""));
+
 
         Map map = null;
         try {
@@ -62,6 +69,22 @@ public class VilliageScene extends NScene {
             System.out.println("clicked!");
             this.finish();
         });
+
+
+    }
+
+    @Override
+    public void showFinish() {
+        super.showFinish();
+
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("欢迎来到火影的世界……");
+        list.add("这是一片充满了危险的土地");
+        list.add("希望你能够活下去……");
+
+        TalkSequence.getInstance().setTalkList(list);
+        TalkSequence.getInstance().start(this);
 
     }
 }

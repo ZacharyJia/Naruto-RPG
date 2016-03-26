@@ -1,5 +1,8 @@
 package me.zacharyjia.naruto.core.scene;
 
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,7 +26,6 @@ public class SceneManager {
     private GraphicsContext gc;
 
     private boolean launched = false;
-
 
     private NScene currentScene = null;
     private Stack<NScene> sceneStack = new Stack<>();
