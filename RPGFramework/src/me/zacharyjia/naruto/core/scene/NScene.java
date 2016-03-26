@@ -42,6 +42,7 @@ public abstract class NScene {
     private Pane pane;
     private Canvas canvas;
     private boolean isShow = false;
+    private boolean isPause = false;
 
     private Intent intent = null;
 
@@ -147,7 +148,7 @@ public abstract class NScene {
     }
 
     public void onMouseDown(MouseEvent event) {
-        if (onMouseDownListener != null) {
+        if (onMouseDownListener != null && !isPause) {
             this.onMouseDownListener.onMouseDown(event);
         }
     }
@@ -157,7 +158,7 @@ public abstract class NScene {
     }
 
     public void onMouseMove(MouseEvent event) {
-        if (onMouseMoveListener != null) {
+        if (onMouseMoveListener != null && !isPause) {
             this.onMouseMoveListener.onMouseMove(event);
         }
     }
@@ -167,7 +168,7 @@ public abstract class NScene {
     }
 
     public void onMouseUp(MouseEvent event) {
-        if (onMouseUpListener != null) {
+        if (onMouseUpListener != null && !isPause) {
             this.onMouseUpListener.onMouseUp(event);
         }
     }
@@ -177,7 +178,7 @@ public abstract class NScene {
     }
 
     public void onKeyUp(KeyEvent event) {
-        if (onKeyUpListener != null) {
+        if (onKeyUpListener != null && !isPause) {
             this.onKeyUpListener.onKeyUp(event);
         }
     }
@@ -187,13 +188,21 @@ public abstract class NScene {
     }
 
     public void onKeyDown(KeyEvent event) {
-        if (onKeyDownListener != null) {
+        if (onKeyDownListener != null && !isPause) {
             this.onKeyDownListener.onKeyDown(event);
         }
     }
 
     public OnMouseClickListener getOnMouseClickListener() {
         return this.onMouseClickListener;
+    }
+
+    public void pauseEvent() {
+        isPause = true;
+    }
+
+    public void resumeEvent() {
+        isPause = false;
     }
 
     public void show(Pane pane, Canvas canvas) {

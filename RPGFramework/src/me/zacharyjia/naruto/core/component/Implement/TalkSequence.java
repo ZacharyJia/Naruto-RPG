@@ -37,6 +37,7 @@ public class TalkSequence {
             TalkBox.getInstance().hide();
             TalkBox.getInstance().show(it.next());
         }
+        scene.pauseEvent();
         scene.setOnMouseClickListener(event -> {
             if (it.hasNext()) {
                 TalkBox.getInstance().hide();
@@ -44,6 +45,7 @@ public class TalkSequence {
             }
             else {
                 scene.setOnMouseClickListener(listener);
+                scene.resumeEvent();
                 TalkBox.getInstance().hide();
             }
         });
