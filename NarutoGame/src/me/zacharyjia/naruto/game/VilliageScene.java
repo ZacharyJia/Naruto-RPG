@@ -3,11 +3,14 @@ package me.zacharyjia.naruto.game;
 import javafx.scene.input.KeyCode;
 import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
+import me.zacharyjia.naruto.core.component.Implement.HeroFactory;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
+import me.zacharyjia.naruto.core.utils.MapReader;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
@@ -22,24 +25,11 @@ public class VilliageScene extends NScene {
     @Override
     public void init() {
 
-        Intent intent = getIntent();
-        System.out.println(intent.getExtra("key", ""));
+        NMap map = MapReader.readMap("/res/map/village.tmx");
+        setMap(map);
 
-
-        Map map = null;
-        try {
-            TMXMapReader reader = new TMXMapReader();
-            map = reader.readMap(ResourcesLoader.getInputStream("/res/map/village.tmx"));
-            //drawMap(gc, res.map);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (map != null) {
-            setMap(new NMap(map));
-        }
-
-        Hero hero = new Hero(CharacterImageLoader.getImages("/res/characters/naruto.png"));
+        SpriteFactory factory = new HeroFactory();
+        AbstractSprite hero = factory.createSprite("/res/characters/naruto.png");
         hero.show();
         addShowable(hero);
         setOnKeyDownListener(keyEvent -> {
@@ -79,10 +69,6 @@ public class VilliageScene extends NScene {
         list.add("欢迎来到火影的世界……");
         list.add("这是一片充满了危险的土地");
         list.add("希望你能够活下去……");
-        list.add("宋世平");
-        list.add("ni");
-        list.add("是个");
-        list.add("逗比！");
 
         TalkSequence.getInstance().setTalkList(list);
         TalkSequence.getInstance().start(this);
