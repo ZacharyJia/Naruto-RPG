@@ -1,5 +1,13 @@
 package me.zacharyjia.naruto;
 
+import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
+import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.utils.ResourcesLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * Created by jia19 on 2016/3/14.
  */
@@ -29,6 +37,21 @@ public class Config {
     private Config(){
 
         //从配置文件加载启动场景
+        Properties properties = new Properties();
+        try {
+            InputStream is = ResourcesLoader.getInputStream("/config.properties");
+            properties.load(is);
+            mapWidth = Integer.parseInt(properties.getProperty("mapWidth", "32"));
+            mapHeight = Integer.parseInt(properties.getProperty("mapHeight", "24"));
+            tileSize = Integer.parseInt(properties.getProperty("tileSize", "32"));
+            windowWidth = Integer.parseInt(properties.getProperty("windowWidth", "1024"));
+            windowHeight = Integer.parseInt(properties.getProperty("windowHeight", "768"));
+            startScene = properties.getProperty("startScene");
+        } catch (ResourcesNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getMapWidth() {

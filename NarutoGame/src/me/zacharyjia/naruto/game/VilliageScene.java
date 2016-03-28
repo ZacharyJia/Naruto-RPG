@@ -1,14 +1,11 @@
 package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import me.zacharyjia.naruto.core.Intent;
-import me.zacharyjia.naruto.core.component.Implement.TalkBox;
-import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
-import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.NMap;
-import me.zacharyjia.naruto.core.event.Interface.OnMouseClickListener;
+import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
+import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
@@ -82,6 +79,10 @@ public class VilliageScene extends NScene {
         list.add("欢迎来到火影的世界……");
         list.add("这是一片充满了危险的土地");
         list.add("希望你能够活下去……");
+        list.add("宋世平");
+        list.add("ni");
+        list.add("是个");
+        list.add("逗比！");
 
         TalkSequence.getInstance().setTalkList(list);
         TalkSequence.getInstance().start(this);
