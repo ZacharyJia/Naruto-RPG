@@ -6,6 +6,7 @@ import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.NPCFactory;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
+import me.zacharyjia.naruto.core.scene.NScene;
 import tiled.core.MapObject;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class NPCLoader {
         Properties properties = mapObject.getProperties();
         String imgFile = properties.getProperty("imgFile");
         NPCFactory factory = new NPCFactory();
-        NPC npc = factory.createSprite(imgFile);
+        NPC npc = factory.createSprite(null, imgFile);
         int x = Integer.valueOf(properties.getProperty("X"));
         int y = Integer.valueOf(properties.getProperty("Y"));
         npc.setPosition(x, y);

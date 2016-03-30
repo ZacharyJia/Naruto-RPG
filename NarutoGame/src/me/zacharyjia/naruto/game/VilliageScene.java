@@ -28,12 +28,15 @@ public class VilliageScene extends NScene {
         setMap(map);
 
         SpriteFactory factory = new HeroFactory();
-        AbstractSprite hero = factory.createSprite("/res/characters/naruto.png");
+        AbstractSprite hero = factory.createSprite(this, "/res/characters/naruto.png");
         ObjectGroup objects = (ObjectGroup) map.getUserLayer("npc");
         NPC npc = NPCLoader.loadFromObject(objects.iterator().next());
         npc.startMove();
         addShowable(npc);
+        hero.setImageCenterY(55);
+        hero.setPosition(13, 23);
         hero.show();
+
         addShowable(hero);
         setOnKeyDownListener(keyEvent -> {
             KeyCode keyCode = keyEvent.getCode();

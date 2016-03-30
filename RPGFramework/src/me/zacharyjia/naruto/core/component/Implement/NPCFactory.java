@@ -2,6 +2,7 @@ package me.zacharyjia.naruto.core.component.Implement;
 
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
+import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 
 /**
@@ -10,7 +11,7 @@ import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 public class NPCFactory implements SpriteFactory {
 
     @Override
-    public NPC createSprite(String imgName) {
+    public NPC createSprite(NScene scene, String imgName) {
         NPC npc = new NPC(CharacterImageLoader.getImages(imgName));
         return npc;
     }

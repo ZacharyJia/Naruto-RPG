@@ -7,7 +7,11 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import me.zacharyjia.naruto.Config;
+import me.zacharyjia.naruto.core.Exception.SceneNullException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.scene.NScene;
+import tiled.core.MapLayer;
+import tiled.core.TileLayer;
 
 /**
  * Created by jia19 on 2016/3/11.
@@ -15,12 +19,19 @@ import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 public class Hero extends AbstractSprite {
 
     private Timeline timeline;
+    private NScene scene;
+    private MapLayer maskLayer;
 
     private int currentImageIndex = 0;
 
-    public Hero(Image[][] images) {
+    public Hero(NScene scene, Image[][] images) {
+        if (scene == null)
+        {
+            throw new SceneNullException("Scene cannot be null!");
+        }
         setImage(images);
-
+        this.scene = scene;
+        maskLayer = scene.getMap().getMaskLayer();
         timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -54,6 +65,8 @@ public class Hero extends AbstractSprite {
         int mapHeight = Config.getInstance().getMapHeight();
         int tileSize = Config.getInstance().getTileSize();
 
+        int originX = x;
+        int originY = y;
         x += offsetX;
         y += offsetY;
 
@@ -71,8 +84,14 @@ public class Hero extends AbstractSprite {
         else if (y < 0) {
             y = 0;
         }
+        if (maskLayer != null && maskLayer instanceof TileLayer) {
+            if(((TileLayer) maskLayer).getTileAt(x, y) == null){
+                x = originX;
+                y = originY;
+            }
+        }
         setPosition(x, y);
-        timeline.play();
+
     }
 
 
