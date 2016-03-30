@@ -1,6 +1,6 @@
 package me.zacharyjia.naruto.core.utils;
 
-import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.component.Implement.TiledMapAdapter;
 import tiled.core.Map;
 import tiled.io.TMXMapReader;
 
@@ -9,7 +9,7 @@ import tiled.io.TMXMapReader;
  */
 public class MapReader {
 
-    public static NMap readMap(String name) {
+    public static TiledMapAdapter readMap(String name) {
         Map map = null;
         try {
             TMXMapReader reader = new TMXMapReader();
@@ -20,7 +20,7 @@ public class MapReader {
         }
 
         if (map != null) {
-            return new NMap(map);
+            return new TiledMapAdapter(map);
         }
         else {
             return null;

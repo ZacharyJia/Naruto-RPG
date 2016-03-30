@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
+import me.zacharyjia.naruto.core.component.Interface.IMap;
 import tiled.core.*;
 
 import java.util.ArrayList;
@@ -9,10 +10,10 @@ import java.util.Objects;
 /**
  * Created by jia19 on 2016/3/14.
  */
-public class NMap{
+public class TiledMapAdapter implements IMap {
     private Map map;
 
-    public NMap(Map map) {
+    public TiledMapAdapter(Map map) {
         this.map = map;
     }
 

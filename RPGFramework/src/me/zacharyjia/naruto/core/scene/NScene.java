@@ -11,10 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Intent;
-import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.event.Interface.*;
 import me.zacharyjia.naruto.core.component.Interface.IShowable;
-import tiled.core.Map;
 import tiled.core.Tile;
 import tiled.core.TileLayer;
 
@@ -35,7 +34,7 @@ public abstract class NScene {
     private OnMouseUpListener onMouseUpListener = null;
 
     private Image background;
-    private NMap map;
+    private IMap map;
     private ArrayList<IShowable> showables = new ArrayList<>();
     private ArrayList<Node> nodes = new ArrayList<>();
 
@@ -70,11 +69,11 @@ public abstract class NScene {
         this.background = background;
     }
 
-    public void setMap(NMap map) {
+    public void setMap(IMap map) {
         this.map = map;
     }
 
-    public NMap getMap() {
+    public IMap getMap() {
         return map;
     }
 
@@ -252,8 +251,7 @@ public abstract class NScene {
         }
     }
 
-    private void drawMap(GraphicsContext gc, NMap nMap) {
-        Map map = nMap.getMap();
+    private void drawMap(GraphicsContext gc, IMap nMap) {
         List<TileLayer> layers = nMap.getLayerList();
         for (TileLayer layer : layers) {
             int x = layer.getWidth();

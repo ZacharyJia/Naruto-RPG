@@ -1,19 +1,14 @@
 package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
-import me.zacharyjia.naruto.core.Intent;
-import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.HeroFactory;
-import me.zacharyjia.naruto.core.component.Implement.NMap;
+import me.zacharyjia.naruto.core.component.Implement.TiledMapAdapter;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
-import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
 import me.zacharyjia.naruto.core.utils.MapReader;
-import me.zacharyjia.naruto.core.utils.ResourcesLoader;
-import tiled.core.Map;
-import tiled.io.TMXMapReader;
 
 import java.util.ArrayList;
 
@@ -25,7 +20,7 @@ public class VilliageScene extends NScene {
     @Override
     public void init() {
 
-        NMap map = MapReader.readMap("/res/map/village.tmx");
+        IMap map = MapReader.readMap("/res/map/village.tmx");
         setMap(map);
 
         SpriteFactory factory = new HeroFactory();
