@@ -2,13 +2,17 @@ package me.zacharyjia.naruto.game;
 
 import javafx.scene.input.KeyCode;
 import me.zacharyjia.naruto.core.component.Implement.HeroFactory;
+import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.TiledMapAdapter;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.core.utils.NPCLoader;
+import tiled.core.ObjectGroup;
 
 import java.util.ArrayList;
 
@@ -25,24 +29,28 @@ public class VilliageScene extends NScene {
 
         SpriteFactory factory = new HeroFactory();
         AbstractSprite hero = factory.createSprite("/res/characters/naruto.png");
+        ObjectGroup objects = (ObjectGroup) map.getUserLayer("npc");
+        NPC npc = NPCLoader.loadFromObject(objects.iterator().next());
+        npc.startMove();
+        addShowable(npc);
         hero.show();
         addShowable(hero);
         setOnKeyDownListener(keyEvent -> {
             KeyCode keyCode = keyEvent.getCode();
             if (keyCode.equals(KeyCode.UP)) {
-                hero.setDirection(AbstractSprite.Direction.UP);
+                hero.setDirection(Direction.UP);
                 hero.move(0, -1);
             }
             else if (keyCode.equals(KeyCode.DOWN)) {
-                hero.setDirection(AbstractSprite.Direction.DOWN);
+                hero.setDirection(Direction.DOWN);
                 hero.move(0, 1);
             }
             else if (keyCode.equals(KeyCode.LEFT)) {
-                hero.setDirection(AbstractSprite.Direction.LEFT);
+                hero.setDirection(Direction.LEFT);
                 hero.move(-1, 0);
             }
             else if (keyCode.equals(KeyCode.RIGHT)) {
-                hero.setDirection(AbstractSprite.Direction.RIGHT);
+                hero.setDirection(Direction.RIGHT);
                 hero.move(1, 0);
             }
         });

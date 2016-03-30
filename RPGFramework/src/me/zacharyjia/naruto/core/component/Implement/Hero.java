@@ -19,7 +19,7 @@ public class Hero extends AbstractSprite {
     private int currentImageIndex = 0;
 
     public Hero(Image[][] images) {
-        this.images = images;
+        setImage(images);
 
         timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
             @Override
@@ -71,10 +71,19 @@ public class Hero extends AbstractSprite {
         else if (y < 0) {
             y = 0;
         }
-        imageView.setLayoutX(tileSize * x);
-        imageView.setLayoutY(tileSize * y);
+        setPosition(x, y);
         timeline.play();
     }
 
+
+    @Override
+    public void pauseAnimation() {
+        timeline.pause();
+    }
+
+    @Override
+    public void resumeAnimation() {
+        timeline.play();
+    }
 
 }

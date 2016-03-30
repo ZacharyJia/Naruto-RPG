@@ -12,4 +12,9 @@ public interface IShowable {
 
     ImageView getImageView();
 
+    public void pauseAnimation();
+
+    public void resumeAnimation();
+
+
 }

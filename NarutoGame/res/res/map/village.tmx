@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="tileset-advance-rpgxp" tilewidth="32" tileheight="32" tilecount="5560" columns="8">
+ <tileset firstgid="1" name="tileset-advance-rpgxp" tilewidth="32" tileheight="32" tilecount="162" columns="8">
   <image source="/res/map/tileset.png" width="256" height="22240" jar="true"/>
  </tileset>
  <layer name="map_草地" width="32" height="24">
@@ -59,8 +59,14 @@
 0,0,0,0,0,0,173,0,0,173,0,0,0,0,0,0,0,0,0,173,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
-  <objectgroup name="对象层 1">
-   <object id="8" x="564" y="356"/>
-  </objectgroup>
-
+ <objectgroup name="npc">
+  <object id="1" x="564" y="356">
+    <properties>
+     <property name="X" value="10"/>
+     <property name="Y" value="10"/>
+     <property name="action" value="down 5;up 5"/>
+     <property name="imgFile" value="/res/characters/kakashi.png"/>
+    </properties>
+  </object>
+ </objectgroup>
 </map>

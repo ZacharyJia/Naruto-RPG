@@ -12,6 +12,7 @@ public abstract class AbstractSprite implements IShowable {
 
     protected int x, y;//当前位置
     protected Direction direction = Direction.UP; //当前方向
+    protected int imageCenterX = 0, imageCenterY = 0;
 
     protected Image images[][];
 
@@ -19,13 +20,12 @@ public abstract class AbstractSprite implements IShowable {
 
     protected boolean isMove = false;
 
-
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT
-    }
-
     public void setImage(Image[][] images) {
         this.images = images;
+        if (images[0][0] != null) {
+            imageCenterX = (int)images[0][0].getWidth() / 2;
+            imageCenterY = (int)images[0][0].getHeight() / 2;
+        }
     }
 
     @Override
@@ -43,7 +43,7 @@ public abstract class AbstractSprite implements IShowable {
         return this.imageView;
     }
 
-    public abstract void move(int offsetX, int offsetY);
+    public void move(int offsetX, int offsetY){}
 
     public int getX() {
         return x;
@@ -59,12 +59,20 @@ public abstract class AbstractSprite implements IShowable {
         this.x = x;
         this.y = y;
 
-        imageView.setLayoutX(tileSize * x);
-        imageView.setLayoutY(tileSize * y);
+        imageView.setLayoutX(tileSize * x + tileSize / 2 - imageCenterX);
+        imageView.setLayoutY(tileSize * y + tileSize / 2 - imageCenterY);
     }
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void setImageCenterY(int imageCenterY) {
+        this.imageCenterY = imageCenterY;
+    }
+
+    public void setImageCenterX(int imageCenterX) {
+        this.imageCenterX = imageCenterX;
     }
 
 }

@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
+import me.zacharyjia.naruto.core.component.Interface.IShowable;
 import me.zacharyjia.naruto.core.event.Interface.OnMouseClickListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 
@@ -29,6 +30,8 @@ public class TalkSequence {
     public void start(NScene scene) {
         OnMouseClickListener listener = scene.getOnMouseClickListener();
 
+        ArrayList<IShowable> showables = scene.getChildren();
+
         Iterator<String> it = talkList.iterator();
         if (talkList.size() == 0) {
             return;
@@ -38,6 +41,10 @@ public class TalkSequence {
             TalkBox.getInstance().show(it.next());
         }
         scene.pauseEvent();
+        for (IShowable showable : showables) {
+            showable.pauseAnimation();
+        }
+
         scene.setOnMouseClickListener(event -> {
             if (it.hasNext()) {
                 TalkBox.getInstance().hide();
@@ -46,6 +53,10 @@ public class TalkSequence {
             else {
                 scene.setOnMouseClickListener(listener);
                 scene.resumeEvent();
+                for (IShowable showable : showables) {
+                    showable.resumeAnimation();
+                }
+
                 TalkBox.getInstance().hide();
             }
         });

@@ -42,14 +42,14 @@ public class TiledMapAdapter implements IMap {
 
     public ObjectGroup getEntryLayer() {
         for (MapLayer layer : map.getLayers()) {
-            if ("object".equals(layer.getName()) && layer instanceof ObjectGroup) {
+            if ("entry".equals(layer.getName()) && layer instanceof ObjectGroup) {
                 return (ObjectGroup)layer;
             }
         }
         return null;
     }
 
-    public MapLayer getUserTile(String name) {
+    public MapLayer getUserLayer(String name) {
         if (name == null) {
             return null;
         }
@@ -61,7 +61,7 @@ public class TiledMapAdapter implements IMap {
         return null;
     }
 
-    public List<MapLayer> getUserTileList(String prefix) {
+    public List<MapLayer> getUserLayerList(String prefix) {
         List<MapLayer> list = new ArrayList<>();
         if (prefix == null) {
             return list;

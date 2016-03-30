@@ -1,15 +1,35 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 
 /**
  * Created by jia19 on 2016/3/11.
  */
 public class Monster extends AbstractSprite {
 
+    private Image image;
+
+    public Monster(String name) {
+        try {
+            image = new Image(ResourcesLoader.getInputStream(name));
+            setImageCenterX((int)image.getWidth() / 2);
+            setImageCenterY((int)image.getHeight() / 2);
+        } catch (ResourcesNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void move(int offsetX, int offsetY) {
+    public void pauseAnimation() {
+
+    }
+
+    @Override
+    public void resumeAnimation() {
 
     }
 }

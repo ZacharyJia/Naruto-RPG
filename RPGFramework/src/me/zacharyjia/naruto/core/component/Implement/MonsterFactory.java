@@ -1,5 +1,6 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
+import javafx.scene.image.Image;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 
 /**
@@ -8,6 +9,6 @@ import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 public class MonsterFactory implements SpriteFactory {
     @Override
     public Monster createSprite(String imgName) {
-        return null;
+        return new Monster(imgName);
     }
 }

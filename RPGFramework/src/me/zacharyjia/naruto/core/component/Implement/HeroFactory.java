@@ -12,9 +12,7 @@ public class HeroFactory implements SpriteFactory {
 
     @Override
     public Hero createSprite(String imgName) {
-
         Hero hero = new Hero(CharacterImageLoader.getImages(imgName));
         return hero;
-
     }
 }

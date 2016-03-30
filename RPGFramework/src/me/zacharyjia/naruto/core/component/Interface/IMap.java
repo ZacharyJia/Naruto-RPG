@@ -18,8 +18,8 @@ public interface IMap {
 
     public ObjectGroup getEntryLayer();
 
-    public MapLayer getUserTile(String name);
+    public MapLayer getUserLayer(String name);
 
-    public List<MapLayer> getUserTileList(String prefix);
+    public List<MapLayer> getUserLayerList(String prefix);
     
 }
