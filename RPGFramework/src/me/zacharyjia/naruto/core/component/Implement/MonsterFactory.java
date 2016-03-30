@@ -1,6 +1,5 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
-import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 
 /**

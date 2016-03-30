@@ -131,6 +131,12 @@ public class SceneManager {
             System.exit(0);
         }
     }
+
+    public void switchScene(Intent intent) {
+        sceneStack.clear();
+        pushScene(intent);
+    }
+
     /*
     public void switchScene(NScene scene) {
         if (scene == null) {

@@ -14,9 +14,6 @@ import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
  */
 public class Hero extends AbstractSprite {
 
-    private int life; //生命值
-    private int chakra; //查克拉
-
     private Timeline timeline;
 
     private int currentImageIndex = 0;
