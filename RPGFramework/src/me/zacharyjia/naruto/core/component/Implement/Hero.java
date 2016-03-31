@@ -9,9 +9,13 @@ import javafx.util.Duration;
 import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Exception.SceneNullException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.event.Interface.OnEntryListener;
 import me.zacharyjia.naruto.core.scene.NScene;
-import tiled.core.MapLayer;
+import tiled.core.MapObject;
+import tiled.core.ObjectGroup;
 import tiled.core.TileLayer;
+
+import java.util.Properties;
 
 /**
  * Created by jia19 on 2016/3/11.
@@ -20,7 +24,10 @@ public class Hero extends AbstractSprite {
 
     private Timeline timeline;
     private NScene scene;
-    private MapLayer maskLayer;
+    private TileLayer maskLayer;
+    private ObjectGroup entryLayer;
+
+    private OnEntryListener onEntryListener;
 
     private int currentImageIndex = 0;
 
@@ -32,6 +39,7 @@ public class Hero extends AbstractSprite {
         setImage(images);
         this.scene = scene;
         maskLayer = scene.getMap().getMaskLayer();
+        entryLayer = scene.getMap().getEntryLayer();
         timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -84,13 +92,29 @@ public class Hero extends AbstractSprite {
         else if (y < 0) {
             y = 0;
         }
-        if (maskLayer != null && maskLayer instanceof TileLayer) {
-            if(((TileLayer) maskLayer).getTileAt(x, y) == null){
+
+        //遮罩层判断
+        if (maskLayer != null) {
+            if(maskLayer.getTileAt(x, y) == null){
                 x = originX;
                 y = originY;
             }
         }
         setPosition(x, y);
+
+        //entry判断
+        for (MapObject entry: entryLayer) {
+            Properties properties = entry.getProperties();
+            if (x == entry.getX() && y == entry.getY()) {
+                if (onEntryListener != null) {
+                    onEntryListener.onEntry(entry);
+                }
+            }
+        }
+
+        if (onMoveListener != null) {
+            onMoveListener.onMove(x, y);
+        }
 
     }
 
@@ -105,4 +129,7 @@ public class Hero extends AbstractSprite {
         timeline.play();
     }
 
+    public void setOnEntryListener(OnEntryListener onEntryListener) {
+        this.onEntryListener = onEntryListener;
+    }
 }

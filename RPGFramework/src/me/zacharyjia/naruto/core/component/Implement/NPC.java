@@ -2,23 +2,20 @@ package me.zacharyjia.naruto.core.component.Implement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import me.zacharyjia.naruto.Config;
+import me.zacharyjia.naruto.core.Exception.SceneNullException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
-import me.zacharyjia.naruto.core.utils.CharacterImageLoader;
+import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.NPCAction;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import static me.zacharyjia.naruto.core.component.Interface.Direction.*;
+import static me.zacharyjia.naruto.core.component.Interface.Direction.DOWN;
 
 /**
  * Created by jia19 on 2016/3/11.
@@ -35,7 +32,7 @@ public class NPC extends AbstractSprite {
 
     private int currentImageIndex = 0;
 
-    public NPC(Image[][] images) {
+    public NPC(Image[][]images) {
         setImage(images);
 
         EventHandler handler = event -> {

@@ -1,9 +1,9 @@
-package me.zacharyjia.naruto.game;
+package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
+import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.core.component.Implement.HeroFactory;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
-import me.zacharyjia.naruto.core.component.Implement.TiledMapAdapter;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
@@ -15,6 +15,7 @@ import me.zacharyjia.naruto.core.utils.NPCLoader;
 import tiled.core.ObjectGroup;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  * Created by jia19 on 2016/3/21.
@@ -28,12 +29,29 @@ public class VilliageScene extends NScene {
         setMap(map);
 
         SpriteFactory factory = new HeroFactory();
-        AbstractSprite hero = factory.createSprite(this, "/res/characters/naruto.png");
+        Hero hero = (Hero)factory.createSprite(this, "/res/characters/naruto.png");
+
         ObjectGroup objects = (ObjectGroup) map.getUserLayer("npc");
         NPC npc = NPCLoader.loadFromObject(objects.iterator().next());
         npc.startMove();
+        npc.setImageCenterY(66);
         addShowable(npc);
-        hero.setImageCenterY(55);
+
+        hero.setOnMoveListener(((x, y) -> {
+            if (hero.hitTest(npc)) {
+                ArrayList<String> list = new ArrayList<String>();
+                list.add("卡卡西老师：我今天又在人生的道路上迷失了...");
+                list.add("鸣人：......");
+                list.add("卡卡西老师：鸣人你要去哪？");
+                list.add("鸣人：我要去村子里接任务");
+
+                TalkSequence.getInstance()
+                        .setTalkList(list)
+                        .start(this);
+            }
+        }));
+
+        hero.setImageCenterY(66);
         hero.setPosition(13, 23);
         hero.show();
 
@@ -59,8 +77,17 @@ public class VilliageScene extends NScene {
         });
 
         this.setOnMouseClickListener(event -> {
-            System.out.println("clicked!");
-            this.finish();
+            //
+
+        });
+
+        hero.setOnEntryListener(entry -> {
+            Properties properties = entry.getProperties();
+            String entryName = properties.getProperty("name");
+            if ("house".equals(entryName)) {
+                this.finish();
+                System.out.println("Enter room house!");
+            }
         });
 
 

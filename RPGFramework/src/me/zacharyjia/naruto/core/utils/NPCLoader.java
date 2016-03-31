@@ -1,12 +1,8 @@
 package me.zacharyjia.naruto.core.utils;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.NPCFactory;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
-import me.zacharyjia.naruto.core.scene.NScene;
 import tiled.core.MapObject;
 
 import java.util.ArrayList;

@@ -16,8 +16,9 @@ public class TalkSequence {
     private TalkSequence(){}
     private ArrayList<String> talkList;
 
-    public void setTalkList(ArrayList<String> list) {
+    public TalkSequence setTalkList(ArrayList<String> list) {
         this.talkList = list;
+        return this;
     }
 
     public static TalkSequence getInstance() {

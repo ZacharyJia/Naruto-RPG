@@ -1,4 +1,4 @@
-package me.zacharyjia.naruto.game;
+package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -8,9 +8,6 @@ import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
-
-import java.io.*;
-import java.net.MalformedURLException;
 
 /**
  * Created by jia19 on 2016/3/21.
