@@ -16,7 +16,7 @@ public class ResourcesLoader {
     public static InputStream getInputStream(String file) throws ResourcesNotFoundException {
         InputStream is = ResourcesLoader.class.getResourceAsStream(file);
         if (is == null) {
-            throw new ResourcesNotFoundException("Resources File not found!");
+            throw new ResourcesNotFoundException("Resources File" + file + " not found!");
         }
         return is;
     }

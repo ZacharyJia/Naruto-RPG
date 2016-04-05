@@ -52,6 +52,14 @@ public abstract class AbstractSprite implements IShowable {
 
     public void move(int offsetX, int offsetY){}
 
+    public void pause() {
+        isMove = false;
+    }
+
+    public void resume() {
+        isMove = true;
+    }
+
     public int getX() {
         return x;
     }

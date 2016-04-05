@@ -1,17 +1,19 @@
 package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
+import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.Hero;
-import me.zacharyjia.naruto.core.component.Implement.HeroFactory;
+import me.zacharyjia.naruto.game.Model.HeroFactory;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
-import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.MapReader;
-import me.zacharyjia.naruto.core.utils.NPCLoader;
+import me.zacharyjia.naruto.game.Model.Impl.Monster;
+import me.zacharyjia.naruto.game.Model.MonsterFactory;
+import me.zacharyjia.naruto.game.utils.NPCLoader;
 import tiled.core.ObjectGroup;
 
 import java.util.ArrayList;
@@ -85,7 +87,11 @@ public class VilliageScene extends NScene {
             Properties properties = entry.getProperties();
             String entryName = properties.getProperty("name");
             if ("house".equals(entryName)) {
-                this.finish();
+                Intent intent = new Intent(BattleScene.class);
+                intent.putExtra("hero", hero);
+                Monster monster = new MonsterFactory().createSprite(this, "/res/characters/asima.png");
+                intent.putExtra("monster", monster);
+                startScene(intent);
                 System.out.println("Enter room house!");
             }
         });

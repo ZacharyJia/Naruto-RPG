@@ -20,7 +20,7 @@ import static me.zacharyjia.naruto.core.component.Interface.Direction.DOWN;
 /**
  * Created by jia19 on 2016/3/11.
  */
-public class NPC extends AbstractSprite {
+public abstract class NPC extends AbstractSprite {
 
     private Timeline timeline;
     private Timeline moveTimeline;

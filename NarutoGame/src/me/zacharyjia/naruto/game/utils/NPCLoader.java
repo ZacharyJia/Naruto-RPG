@@ -1,8 +1,9 @@
-package me.zacharyjia.naruto.core.utils;
+package me.zacharyjia.naruto.game.utils;
 
 import me.zacharyjia.naruto.core.component.Implement.NPC;
-import me.zacharyjia.naruto.core.component.Implement.NPCFactory;
+import me.zacharyjia.naruto.game.Model.NPCFactory;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
+import me.zacharyjia.naruto.core.utils.NPCAction;
 import tiled.core.MapObject;
 
 import java.util.ArrayList;

@@ -9,6 +9,7 @@ import javafx.util.Duration;
 import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Exception.SceneNullException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
+import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.event.Interface.OnEntryListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 import tiled.core.MapObject;
@@ -20,7 +21,7 @@ import java.util.Properties;
 /**
  * Created by jia19 on 2016/3/11.
  */
-public class Hero extends AbstractSprite {
+public abstract class Hero extends AbstractSprite {
 
     private Timeline timeline;
     private NScene scene;
@@ -62,6 +63,18 @@ public class Hero extends AbstractSprite {
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+        timeline.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
         timeline.play();
     }
 
@@ -131,5 +144,24 @@ public class Hero extends AbstractSprite {
 
     public void setOnEntryListener(OnEntryListener onEntryListener) {
         this.onEntryListener = onEntryListener;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+        super.setDirection(direction);
+        switch (direction) {
+            case UP:
+                imageView.setImage(images[3][0]);
+                break;
+            case DOWN:
+                imageView.setImage(images[0][0]);
+                break;
+            case LEFT:
+                imageView.setImage(images[1][0]);
+                break;
+            case RIGHT:
+                imageView.setImage(images[2][0]);
+                break;
+        }
     }
 }

@@ -9,7 +9,7 @@ import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 /**
  * Created by jia19 on 2016/3/11.
  */
-public class Monster extends AbstractSprite {
+public abstract class Monster extends AbstractSprite {
 
     private Image image;
 
@@ -18,6 +18,7 @@ public class Monster extends AbstractSprite {
             image = new Image(ResourcesLoader.getInputStream(name));
             setImageCenterX((int)image.getWidth() / 2);
             setImageCenterY((int)image.getHeight() / 2);
+            super.imageView.setImage(image);
         } catch (ResourcesNotFoundException e) {
             e.printStackTrace();
         }
@@ -30,6 +31,6 @@ public class Monster extends AbstractSprite {
 
     @Override
     public void resumeAnimation() {
-
     }
+
 }
