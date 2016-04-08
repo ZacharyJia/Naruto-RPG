@@ -1,7 +1,10 @@
 package me.zacharyjia.naruto.core.component.Implement;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
@@ -32,5 +35,7 @@ public abstract class Monster extends AbstractSprite {
     @Override
     public void resumeAnimation() {
     }
+
+
 
 }

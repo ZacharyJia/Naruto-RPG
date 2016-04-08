@@ -2,7 +2,6 @@ package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
 import me.zacharyjia.naruto.core.Intent;
-import me.zacharyjia.naruto.core.component.Implement.Hero;
 import me.zacharyjia.naruto.game.Model.HeroFactory;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
@@ -11,8 +10,10 @@ import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
-import me.zacharyjia.naruto.game.Model.MonsterFactory;
+import me.zacharyjia.naruto.game.Model.MonsterPool;
+import me.zacharyjia.naruto.game.components.InfoHub;
 import me.zacharyjia.naruto.game.utils.NPCLoader;
 import tiled.core.ObjectGroup;
 
@@ -23,6 +24,8 @@ import java.util.Properties;
  * Created by jia19 on 2016/3/21.
  */
 public class VilliageScene extends NScene {
+
+    private InfoHub infoHub;
 
     @Override
     public void init() {
@@ -89,12 +92,24 @@ public class VilliageScene extends NScene {
             if ("house".equals(entryName)) {
                 Intent intent = new Intent(BattleScene.class);
                 intent.putExtra("hero", hero);
-                Monster monster = new MonsterFactory().createSprite(this, "/res/characters/asima.png");
+                Monster monster = MonsterPool.getInstance().getRandomMonster(50, 100);
                 intent.putExtra("monster", monster);
                 startScene(intent);
                 System.out.println("Enter room house!");
             }
         });
+
+        hero.setName("漩涡鸣人");
+
+        infoHub = new InfoHub();
+        infoHub.setName(hero.getName());
+        infoHub.setLife(hero.getLife());
+        infoHub.setFullLife(hero.getFullLife());
+        infoHub.setChakra(hero.getChakra());
+        infoHub.setFullChakra(hero.getFullChakra());
+        infoHub.setHasChakra(true);
+
+        this.addNode(infoHub);
 
 
     }

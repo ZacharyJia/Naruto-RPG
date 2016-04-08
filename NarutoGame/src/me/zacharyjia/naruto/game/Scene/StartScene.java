@@ -8,6 +8,7 @@ import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
+import me.zacharyjia.naruto.game.components.InfoHub;
 
 /**
  * Created by jia19 on 2016/3/21.

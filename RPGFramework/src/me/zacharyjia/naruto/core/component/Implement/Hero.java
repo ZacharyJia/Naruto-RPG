@@ -41,26 +41,23 @@ public abstract class Hero extends AbstractSprite {
         this.scene = scene;
         maskLayer = scene.getMap().getMaskLayer();
         entryLayer = scene.getMap().getEntryLayer();
-        timeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(currentImageIndex == 4) currentImageIndex = 0;
-                switch (direction) {
-                    case UP:
-                        imageView.setImage(images[3][currentImageIndex]);
-                        break;
-                    case DOWN:
-                        imageView.setImage(images[0][currentImageIndex]);
-                        break;
-                    case LEFT:
-                        imageView.setImage(images[1][currentImageIndex]);
-                        break;
-                    case RIGHT:
-                        imageView.setImage(images[2][currentImageIndex]);
-                        break;
-                }
-                currentImageIndex++;
+        timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
+            if(currentImageIndex == 4) currentImageIndex = 0;
+            switch (direction) {
+                case UP:
+                    imageView.setImage(images[3][currentImageIndex]);
+                    break;
+                case DOWN:
+                    imageView.setImage(images[0][currentImageIndex]);
+                    break;
+                case LEFT:
+                    imageView.setImage(images[1][currentImageIndex]);
+                    break;
+                case RIGHT:
+                    imageView.setImage(images[2][currentImageIndex]);
+                    break;
             }
+            currentImageIndex++;
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
