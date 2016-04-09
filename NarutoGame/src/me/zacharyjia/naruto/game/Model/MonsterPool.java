@@ -56,7 +56,7 @@ public class MonsterPool {
         if (monsters.size() == 0) {
             return null;
         }
-        int index = random.nextInt() % monsters.size();
+        int index = random.nextInt(monsters.size());
         Monster monster = monsters.get(index);
         int life = random.nextInt(maxLife - minLife) + minLife;
         monster.setFullLife(life);

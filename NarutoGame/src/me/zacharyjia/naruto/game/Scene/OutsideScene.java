@@ -49,7 +49,45 @@ public class OutsideScene extends NScene {
         hero.show();
         addShowable(hero);
 
+        keyEventInit();
+        entryInit();
 
+
+        // 主角信息显示框
+        infoHub = new InfoHub();
+        hero.bindInfoHub(infoHub);
+        this.addNode(infoHub);
+    }
+
+    @Override
+    public void onResume() {
+        hero.bindInfoHub(infoHub);
+
+        if (!hero.isAlive()) {
+            Intent intent = new Intent(StartScene.class);
+            SceneManager.getInstance().switchScene(intent);
+        }
+
+        hero.setScene(this);
+    }
+
+    @Override
+    public void showFinish() {
+        ArrayList<String> list = new ArrayList<>();
+        if (Config.getInstance().isFirst()) {
+            list.add("欢迎来到火影的世界……");
+            list.add("这是一片充满了危险的土地");
+            list.add("希望你能够活下去……");
+            Config.getInstance().setFirst(false);
+        }
+        list.add("木叶村外");
+
+        TalkSequence.getInstance().setTalkList(list);
+        TalkSequence.getInstance().start(this);
+
+    }
+
+    private void keyEventInit() {
         // 方向键检测
         setOnKeyDownListener(keyEvent -> {
             KeyCode keyCode = keyEvent.getCode();
@@ -71,19 +109,21 @@ public class OutsideScene extends NScene {
             }
 
             //随机产生怪物
-            /*
+
             if (keyCode.isArrowKey()) {
-                if (random.nextInt(100) < 10) {
+                if (random.nextInt(100) < 5) {
                     Intent intent = new Intent(BattleScene.class);
                     intent.putExtra("hero", hero);
                     Monster monster = MonsterPool.getInstance().getRandomMonster(50, 100);
                     intent.putExtra("monster", monster);
                     startScene(intent);
                 }
-            }*/
+            }
 
         });
+    }
 
+    private void entryInit() {
         // 入口监听事件
         hero.setOnEntryListener(entry -> {
             Properties properties = entry.getProperties();
@@ -96,42 +136,5 @@ public class OutsideScene extends NScene {
                 System.out.println("Enter village!");
             }
         });
-
-        // 主角信息显示框
-        infoHub = new InfoHub();
-        infoHub.setName(hero.getName());
-        infoHub.setLife(hero.getLife());
-        infoHub.setFullLife(hero.getFullLife());
-        infoHub.setChakra(hero.getChakra());
-        infoHub.setFullChakra(hero.getFullChakra());
-        infoHub.setHasChakra(true);
-
-        this.addNode(infoHub);
-    }
-
-    @Override
-    public void onResume() {
-        hero.bindInfoHub(infoHub);
-
-        if (!hero.isAlive()) {
-            Intent intent = new Intent(StartScene.class);
-            SceneManager.getInstance().switchScene(intent);
-        }
-    }
-
-    @Override
-    public void showFinish() {
-        ArrayList<String> list = new ArrayList<>();
-        if (Config.getInstance().isFirst()) {
-            list.add("欢迎来到火影的世界……");
-            list.add("这是一片充满了危险的土地");
-            list.add("希望你能够活下去……");
-            Config.getInstance().setFirst(false);
-        }
-        list.add("木叶村外");
-
-        TalkSequence.getInstance().setTalkList(list);
-        TalkSequence.getInstance().start(this);
-
     }
 }

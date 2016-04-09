@@ -51,17 +51,24 @@ public class StartScene extends NScene {
             Hero hero = (Hero)factory.createSprite(this, "/res/characters/naruto.png");
             hero.setName("漩涡鸣人");
 
-            AttackSkill skill = new AttackSkill();
-            skill.setName("物理攻击");
-            skill.setAttackValue(20);
-            skill.setCost(10);
-            hero.setSkill(1, skill);
+            AttackSkill attackSkill = new AttackSkill();
+            attackSkill.setName("王八拳");
+            attackSkill.setAttackValue(20);
+            attackSkill.setCost(0);
+            hero.setSkill(1, attackSkill);
 
             RecoverSkill recoverSkill = new RecoverSkill();
             recoverSkill.setChakraValue(20);
             recoverSkill.setLifeValue(20);
             recoverSkill.setName("回复忍术");
             hero.setSkill(0, recoverSkill);
+
+            AttackSkill skill  = new AttackSkill();
+            skill.setName("螺旋丸");
+            skill.setAttackValue(20);
+            skill.setCost(40);
+            hero.setSkill(2, skill);
+
 
             hero.setImageCenterY(66);
             hero.setPosition(13, 23);

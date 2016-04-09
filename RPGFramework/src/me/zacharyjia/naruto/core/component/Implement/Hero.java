@@ -118,12 +118,14 @@ public abstract class Hero extends AbstractSprite {
         }
         setPosition(x, y);
 
-        //entry判断
-        for (MapObject entry: entryLayer) {
-            Properties properties = entry.getProperties();
-            if (x == entry.getX() && y == entry.getY()) {
-                if (onEntryListener != null) {
-                    onEntryListener.onEntry(entry);
+        if (entryLayer != null) {
+            //entry判断
+            for (MapObject entry : entryLayer) {
+                Properties properties = entry.getProperties();
+                if (x == entry.getX() && y == entry.getY()) {
+                    if (onEntryListener != null) {
+                        onEntryListener.onEntry(entry);
+                    }
                 }
             }
         }
