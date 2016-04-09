@@ -5,30 +5,55 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
+import me.zacharyjia.naruto.core.event.Interface.OnTalkSequenceFinishListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
+import me.zacharyjia.naruto.game.components.InfoHub;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jia19 on 2016/3/31.
  */
 public class BattleScene extends NScene {
 
+    private Hero hero;
+    private Monster monster;
     private int heroOriginX, heroOriginY, monsterOriginX, monsterOriginY;
+    private TalkSequence talkSequence = TalkSequence.getInstance();
+    private ArrayList<String> list = new ArrayList<>();
+    private Button btn_skills[] = new Button[3];
+    ISkill[] skills;
 
     @Override
     public void init() {
 
+        //背景设置
+        try {
+            setBackground(new Image(ResourcesLoader.getInputStream("/res/image/battle.jpg")));
+        } catch (ResourcesNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = getIntent();
-        Hero hero = (Hero)intent.getExtra("hero", null);
-        Monster monster = (Monster)intent.getExtra("monster", null);
+        hero = (Hero)intent.getExtra("hero", null);
+        monster = (Monster)intent.getExtra("monster", null);
         if (hero == null || monster == null) {
             //this.finish();
         }
+
+        //英雄设置
+        hero.pause();
+        hero.setDirection(Direction.DOWN);
+        addShowable(hero);
+        addShowable(monster);
 
         heroOriginX = hero.getX();
         heroOriginY = hero.getY();
@@ -38,43 +63,85 @@ public class BattleScene extends NScene {
         hero.setPosition(22, 13);
         monster.setPosition(8, 13);
 
-        hero.pause();
-        hero.setDirection(Direction.DOWN);
-        addShowable(hero);
-        addShowable(monster);
+        //用户信息HUB显示设置
+        InfoHub heroHub = new InfoHub();
+        InfoHub monsterHub = new InfoHub();
+        heroHub.setLayoutX(821);
+        hero.bindInfoHub(heroHub);
+        monster.bindInfoHub(monsterHub);
 
-        AttackSkill skill = new AttackSkill();
-        skill.setName("物理攻击");
-        hero.setSkill(1, skill);
+        addNode(heroHub);
+        addNode(monsterHub);
 
-        try {
-            setBackground(new Image(ResourcesLoader.getInputStream("/res/image/battle.jpg")));
-        } catch (ResourcesNotFoundException e) {
-            e.printStackTrace();
-        }
+        //技能按钮加载
+        skills = hero.getSkills();
 
-        ISkill[] skills = hero.getSkills();
 
         for (int i = 0; i < 3; i++) {
-            Button btn_skill = new Button("技能" + (i + 1));
+            btn_skills[i] = new Button("技能" + (i + 1));
             if (skills != null && skills.length > i && skills[i] != null) {
-                btn_skill.setText(skills[i].getName());
+                btn_skills[i].setText(skills[i].getName());
             }
             else {
-                btn_skill.setDisable(true);
+                btn_skills[i].setDisable(true);
             }
-            btn_skill.setMaxWidth(150);
-            btn_skill.setMinWidth(150);
-            btn_skill.setFont(new Font(16));
-            btn_skill.setLayoutX(850);
-            btn_skill.setLayoutY(350 + i * 50);
-            btn_skill.setOnMouseClicked(event -> {
-                monster.attacked();
+            btn_skills[i].setMaxWidth(150);
+            btn_skills[i].setMinWidth(150);
+            btn_skills[i].setFont(new Font(16));
+            btn_skills[i].setLayoutX(850);
+            btn_skills[i].setLayoutY(350 + i * 50);
+            final int finalI = i;
+            btn_skills[i].setOnMouseClicked(event -> {
+                diableButtons();
+                hero.useSkill(monster, skills[finalI], ()->{
+                    if (!monster.isAlive()) {
+                        list.clear();
+                        list.add("恭喜你取得胜利！");
+                        talkSequence.setTalkList(list);
+                        talkSequence.start(this);
+                        talkSequence.setOnTalkSequenceFinishListener(this::battleFinish);
+                    }
+                    else
+                    {
+                        monster.attack(hero, monster.getAttackValue(), ()->{
+                            if (!hero.isAlive()) {
+                                list.clear();
+                                list.add("十年生死两茫茫，不思量自难忘");
+                                talkSequence.setTalkList(list);
+                                talkSequence.setOnTalkSequenceFinishListener(this::battleFinish);
+                                talkSequence.start(this);
+                            }
+                            else {
+                                enableButtons();
+                            }
+                        });
+                    }
+                });
             });
-            addNode(btn_skill);
+            addNode(btn_skills[i]);
         }
-
-
-
     }
+
+
+    private void battleFinish()
+    {
+        hero.setPosition(heroOriginX, heroOriginY);
+        monster.setPosition(monsterOriginX, monsterOriginY);
+        this.finish();
+    }
+   protected void diableButtons() {
+       for (Button btn : btn_skills) {
+           btn.setDisable(true);
+       }
+   }
+
+    protected void enableButtons() {
+        for (int i = 0; i < btn_skills.length; i++) {
+            if (skills[i] != null) {
+                btn_skills[i].setDisable(false);
+            }
+
+        }
+    }
+
 }

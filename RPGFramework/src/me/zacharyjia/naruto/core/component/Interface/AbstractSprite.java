@@ -99,4 +99,13 @@ public abstract class AbstractSprite implements IShowable {
         }
     }
 
+    protected boolean alive = true;
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 }

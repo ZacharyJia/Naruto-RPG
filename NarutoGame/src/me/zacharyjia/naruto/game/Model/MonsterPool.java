@@ -65,6 +65,9 @@ public class MonsterPool {
         int life = random.nextInt(maxLife - minLife) + minLife;
         monster.setFullLife(life);
         monster.setLife(life);
+        int attackValue = random.nextInt(15) + 5;
+        monster.setAttackValue(attackValue);
+        monster.setAlive(true);
         return monster;
     }
 }

@@ -10,8 +10,10 @@ import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.component.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
+import me.zacharyjia.naruto.game.Model.Impl.RecoverSkill;
 import me.zacharyjia.naruto.game.Model.MonsterPool;
 import me.zacharyjia.naruto.game.components.InfoHub;
 import me.zacharyjia.naruto.game.utils.NPCLoader;
@@ -26,6 +28,7 @@ import java.util.Properties;
 public class VilliageScene extends NScene {
 
     private InfoHub infoHub;
+    private Hero hero;
 
     @Override
     public void init() {
@@ -33,15 +36,37 @@ public class VilliageScene extends NScene {
         IMap map = MapReader.readMap("/res/map/village.tmx");
         setMap(map);
 
+        //初始化主角
         SpriteFactory factory = new HeroFactory();
-        Hero hero = (Hero)factory.createSprite(this, "/res/characters/naruto.png");
+        hero = (Hero)factory.createSprite(this, "/res/characters/naruto.png");
+        hero.setName("漩涡鸣人");
 
+        AttackSkill skill = new AttackSkill();
+        skill.setName("物理攻击");
+        skill.setAttackValue(10);
+        skill.setCost(10);
+        hero.setSkill(1, skill);
+
+        RecoverSkill recoverSkill = new RecoverSkill();
+        recoverSkill.setChakraValue(20);
+        recoverSkill.setLifeValue(20);
+        recoverSkill.setName("回复忍术");
+        hero.setSkill(0, recoverSkill);
+
+        hero.setImageCenterY(66);
+        hero.setPosition(13, 23);
+        hero.show();
+        addShowable(hero);
+
+
+        //初始化NPC
         ObjectGroup objects = (ObjectGroup) map.getUserLayer("npc");
         NPC npc = NPCLoader.loadFromObject(objects.iterator().next());
         npc.startMove();
         npc.setImageCenterY(66);
         addShowable(npc);
 
+        //碰撞检测
         hero.setOnMoveListener(((x, y) -> {
             if (hero.hitTest(npc)) {
                 ArrayList<String> list = new ArrayList<String>();
@@ -56,11 +81,8 @@ public class VilliageScene extends NScene {
             }
         }));
 
-        hero.setImageCenterY(66);
-        hero.setPosition(13, 23);
-        hero.show();
 
-        addShowable(hero);
+        // 方向键检测
         setOnKeyDownListener(keyEvent -> {
             KeyCode keyCode = keyEvent.getCode();
             if (keyCode.equals(KeyCode.UP)) {
@@ -86,6 +108,7 @@ public class VilliageScene extends NScene {
 
         });
 
+        // 入口监听事件
         hero.setOnEntryListener(entry -> {
             Properties properties = entry.getProperties();
             String entryName = properties.getProperty("name");
@@ -99,8 +122,7 @@ public class VilliageScene extends NScene {
             }
         });
 
-        hero.setName("漩涡鸣人");
-
+        // 主角信息显示框
         infoHub = new InfoHub();
         infoHub.setName(hero.getName());
         infoHub.setLife(hero.getLife());
@@ -118,8 +140,8 @@ public class VilliageScene extends NScene {
     public void showFinish() {
         super.showFinish();
 
+        //开始对话
         ArrayList<String> list = new ArrayList<>();
-
         list.add("欢迎来到火影的世界……");
         list.add("这是一片充满了危险的土地");
         list.add("希望你能够活下去……");
@@ -127,5 +149,10 @@ public class VilliageScene extends NScene {
         TalkSequence.getInstance().setTalkList(list);
         TalkSequence.getInstance().start(this);
 
+    }
+
+    @Override
+    public void onResume() {
+        hero.bindInfoHub(infoHub);
     }
 }

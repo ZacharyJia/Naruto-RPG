@@ -110,6 +110,7 @@ public class SceneManager {
             }
             currentScene = scene;
             scene.show(pane, canvas);
+            scene.showFinish();
         }
     }
 
@@ -126,6 +127,7 @@ public class SceneManager {
         if (!sceneStack.isEmpty()) {
             currentScene = sceneStack.peek();
             currentScene.show(pane, canvas);
+            currentScene.onResume();
         }
         else {
             System.exit(0);

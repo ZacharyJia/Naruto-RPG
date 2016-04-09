@@ -2,6 +2,7 @@ package me.zacharyjia.naruto.core.component.Implement;
 
 import me.zacharyjia.naruto.core.component.Interface.IShowable;
 import me.zacharyjia.naruto.core.event.Interface.OnMouseClickListener;
+import me.zacharyjia.naruto.core.event.Interface.OnTalkSequenceFinishListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 public class TalkSequence {
     private static TalkSequence instance = new TalkSequence();
 
+    private OnTalkSequenceFinishListener onTalkSequenceFinishListener = null;
     private TalkSequence(){}
     private ArrayList<String> talkList;
 
@@ -59,8 +61,17 @@ public class TalkSequence {
                 }
 
                 TalkBox.getInstance().hide();
+
+                if (onTalkSequenceFinishListener != null) {
+                    onTalkSequenceFinishListener.onTalkSequenceFinish();
+                }
+                onTalkSequenceFinishListener = null;
             }
         });
+    }
+
+    public void setOnTalkSequenceFinishListener(OnTalkSequenceFinishListener onTalkSequenceFinishListener) {
+        this.onTalkSequenceFinishListener = onTalkSequenceFinishListener;
     }
 
 

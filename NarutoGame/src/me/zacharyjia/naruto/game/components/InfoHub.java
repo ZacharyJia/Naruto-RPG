@@ -7,6 +7,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import me.zacharyjia.naruto.game.Model.Interface.InfoShowable;
 
 /**
  * Created by jia19 on 2016/4/8.
@@ -107,6 +108,16 @@ public class InfoHub extends Label {
 
     public void setHasChakra(boolean hasChakra) {
         this.hasChakra = hasChakra;
+        updateDisplay();
+    }
+
+    public void notifyChanged(InfoShowable sprite) {
+        this.life = sprite.getLife();
+        this.chakra = sprite.getChakra();
+        this.fullLife = sprite.getFullLife();
+        this.fullChakra = sprite.getFullChakra();
+        this.hasChakra = sprite.hasChakra();
+        this.name = sprite.getName();
         updateDisplay();
     }
 }

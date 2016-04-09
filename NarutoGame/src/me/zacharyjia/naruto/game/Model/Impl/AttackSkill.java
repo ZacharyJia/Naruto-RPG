@@ -11,7 +11,19 @@ public class AttackSkill extends ISkill {
     private int attackValue;
     private int cost;
 
-    public void attack(NPC npc) {
-        npc.attacked(attackValue);
+    public int getAttackValue() {
+        return attackValue;
+    }
+
+    public void setAttackValue(int attackValue) {
+        this.attackValue = attackValue;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

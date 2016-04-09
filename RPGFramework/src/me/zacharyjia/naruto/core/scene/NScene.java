@@ -229,8 +229,10 @@ public abstract class NScene {
             pane.getChildren().add(node);
         }
 
-        showFinish();
     }
+
+    public void onResume() {}
+
     public void disappear() {
         this.pane = null;
         this.canvas = null;
