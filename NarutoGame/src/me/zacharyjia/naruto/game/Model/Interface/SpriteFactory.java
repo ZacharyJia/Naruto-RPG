@@ -1,6 +1,7 @@
-package me.zacharyjia.naruto.core.component.Interface;
+package me.zacharyjia.naruto.game.Model.Interface;
 
 import javafx.scene.image.Image;
+import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.scene.NScene;
 
 /**

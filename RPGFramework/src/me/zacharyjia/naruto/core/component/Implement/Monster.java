@@ -10,6 +10,8 @@ import me.zacharyjia.naruto.core.component.Interface.AbstractSprite;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 
 /**
+ * 怪物
+ * 可战斗，不可控制
  * Created by jia19 on 2016/3/11.
  */
 public abstract class Monster extends AbstractSprite {

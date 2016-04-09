@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 地图适配器
+ * 用来适配不同的地图类
+ *
  * Created by jia19 on 2016/3/14.
  */
 public class TiledMapAdapter implements IMap {
@@ -21,6 +24,7 @@ public class TiledMapAdapter implements IMap {
         return map;
     }
 
+    //获取遮罩层
     public TileLayer getMaskLayer() {
         for (MapLayer layer : map.getLayers()) {
             if ("mask".equals(layer.getName()) && layer instanceof TileLayer) {
@@ -30,6 +34,7 @@ public class TiledMapAdapter implements IMap {
         return null;
     }
 
+    //获取普通地图层
     public List<TileLayer> getLayerList() {
         List<TileLayer> list = new ArrayList<>();
         for (MapLayer layer: map.getLayers()) {
@@ -40,6 +45,7 @@ public class TiledMapAdapter implements IMap {
         return list;
     }
 
+    //获取入口层
     public ObjectGroup getEntryLayer() {
         for (MapLayer layer : map.getLayers()) {
             if ("entry".equals(layer.getName()) && layer instanceof ObjectGroup) {
@@ -49,6 +55,7 @@ public class TiledMapAdapter implements IMap {
         return null;
     }
 
+    //获取用户指定的图层
     public MapLayer getUserLayer(String name) {
         if (name == null) {
             return null;
@@ -61,6 +68,7 @@ public class TiledMapAdapter implements IMap {
         return null;
     }
 
+    //获取用户指定图层列表
     public List<MapLayer> getUserLayerList(String prefix) {
         List<MapLayer> list = new ArrayList<>();
         if (prefix == null) {

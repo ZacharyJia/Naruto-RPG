@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 地图接口
+ *
  * Created by jia19 on 2016/3/28.
  */
 public interface IMap {

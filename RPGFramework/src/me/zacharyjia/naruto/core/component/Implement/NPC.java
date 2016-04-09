@@ -18,6 +18,7 @@ import java.util.ListIterator;
 import static me.zacharyjia.naruto.core.component.Interface.Direction.DOWN;
 
 /**
+ * NPC，不可战斗，不由用户控制
  * Created by jia19 on 2016/3/11.
  */
 public abstract class NPC extends AbstractSprite {
@@ -35,6 +36,7 @@ public abstract class NPC extends AbstractSprite {
     public NPC(Image[][]images) {
         setImage(images);
 
+        //设置四方向运动动画
         EventHandler handler = event -> {
             if(currentImageIndex == 4) currentImageIndex = 0;
             switch (direction) {
@@ -53,11 +55,11 @@ public abstract class NPC extends AbstractSprite {
             }
             currentImageIndex++;
         };
-
         timeline = new Timeline(new KeyFrame(Duration.millis(200), handler));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        //根据定义的运动情况，设置反复运动
         moveTimeline = new Timeline(new KeyFrame(Duration.millis(400), event -> {
             if (valueLeft > 0) {
                 switch (currentDirection) {
@@ -87,20 +89,24 @@ public abstract class NPC extends AbstractSprite {
             }
         }));
 
+        //无限循环
         moveTimeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+    //设置预定义的运动序列
     public void setActions(List<NPCAction> actions) {
         this.actions = actions;
         it = actions.listIterator(0);
     }
 
+    //开始运动
     public void startMove() {
         if (this.moveTimeline != null) {
             this.moveTimeline.play();
         }
     }
 
+    //停止运动
     public void stopMove() {
         if (this.moveTimeline != null) {
             this.moveTimeline.pause();
@@ -109,6 +115,7 @@ public abstract class NPC extends AbstractSprite {
 
     @Override
     public void move(int offsetX, int offsetY) {
+        //运动
         int mapWidth = Config.getInstance().getMapWidth();
         int mapHeight = Config.getInstance().getMapHeight();
         int tileSize = Config.getInstance().getTileSize();

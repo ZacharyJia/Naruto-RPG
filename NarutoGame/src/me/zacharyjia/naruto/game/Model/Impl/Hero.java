@@ -25,6 +25,7 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
     private int fullChakra = 100;
 
     boolean left = true;
+    boolean up = true;
 
     private Timeline attackAnimation = new Timeline(new KeyFrame(Duration.millis(100), event -> {
         if (left) {
@@ -36,6 +37,19 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
             left = true;
         }
     }));
+
+
+    private Timeline recoverAnimation = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+        if (up) {
+            super.imageView.setLayoutY(super.imageView.getLayoutY() + 10);
+            up = false;
+        }
+        else {
+            super.imageView.setLayoutY(super.imageView.getLayoutY() - 10);
+            up = true;
+        }
+    }));
+
 
     private ISkill[] skills = new ISkill[3];
     private IState state = new NormalState();
@@ -81,18 +95,22 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
         }
         setLife(life);
 
-        if (this.life < this.fullLife * 0.2) {
+        if (this.life < this.fullLife * 0.3) {
             this.state = new TiredState();
         }
 
         attackAnimation.setOnFinished(event -> {
             if (listener != null) {
-                listener.onAttackFinish();
+                listener.onSkillFinish();
             }
         });
     }
 
     public void recover(int life, int chakra, OnSkillFinishListener listener) {
+        up = true;
+        recoverAnimation.setCycleCount(6);
+        recoverAnimation.play();
+
         if (life > this.fullLife) {
             life = this.fullLife;
         }
@@ -101,9 +119,16 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
         }
         setLife(life);
         setChakra(chakra);
-        if (listener != null) {
-            listener.onAttackFinish();
+
+        if (life > this.fullLife * 0.3) {
+            this.state = new NormalState();
         }
+
+        recoverAnimation.setOnFinished(event -> {
+            if (listener != null) {
+                listener.onSkillFinish();
+            }
+        });
     }
 
     public int getFullChakra() {

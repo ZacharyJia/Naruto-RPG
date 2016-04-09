@@ -5,6 +5,7 @@ import me.zacharyjia.naruto.game.Model.Interface.ISkill;
 import me.zacharyjia.naruto.game.Model.Interface.IState;
 
 /**
+ * 疲惫状态
  * Created by jia19 on 2016/4/8.
  */
 public class TiredState implements IState {

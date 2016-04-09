@@ -20,9 +20,11 @@ public class Config {
     private int tileSize = 32;
     private int windowWidth = 1024;
     private int windowHeight = 768;
+    private boolean isFirst = true;
 
     private String startScene = "me.zacharyjia.naruto.game.StartScene";
 
+    //单例实现
     public static Config getInstance() {
         if (instance == null) {
             synchronized (Config.class) {
@@ -36,9 +38,9 @@ public class Config {
 
     private Config(){
 
-        //从配置文件加载启动场景
         Properties properties = new Properties();
         try {
+            //读取配置信息
             InputStream is = ResourcesLoader.getInputStream("/config.properties");
             properties.load(is);
             mapWidth = Integer.parseInt(properties.getProperty("mapWidth", "32"));
@@ -46,7 +48,7 @@ public class Config {
             tileSize = Integer.parseInt(properties.getProperty("tileSize", "32"));
             windowWidth = Integer.parseInt(properties.getProperty("windowWidth", "1024"));
             windowHeight = Integer.parseInt(properties.getProperty("windowHeight", "768"));
-            startScene = properties.getProperty("startScene");
+            startScene = properties.getProperty("startScene");//启动场景
         } catch (ResourcesNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -76,5 +78,13 @@ public class Config {
 
     public String getStartScene() {
         return startScene;
+    }
+
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
     }
 }

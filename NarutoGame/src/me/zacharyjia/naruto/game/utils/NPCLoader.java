@@ -11,6 +11,8 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
+ * NPC加载工具
+ * 利用解释器模式，解析在地图中定义的NPC的运动
  * Created by jia19 on 2016/3/30.
  */
 public class NPCLoader {
@@ -32,6 +34,7 @@ public class NPCLoader {
 
         String action = properties.getProperty("action");
         if (action != null) {
+            //解析运动模式
             String[] actions = action.split(";");
             for (String s : actions) {
                 Scanner scanner = new Scanner(s);

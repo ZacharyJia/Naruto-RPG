@@ -13,16 +13,17 @@ public abstract class AbstractSprite implements IShowable {
 
     protected int x, y;//当前位置
     protected Direction direction = Direction.UP; //当前方向
-    protected int imageCenterX = 0, imageCenterY = 0;
+    protected int imageCenterX = 0, imageCenterY = 0; //素材图片的中心点
 
-    protected Image images[][];
+    protected Image images[][]; //四方向运动图
 
     protected ImageView imageView = new ImageView();
 
-    protected OnMoveListener onMoveListener;
+    protected OnMoveListener onMoveListener; //移动监听器
 
     protected boolean isMove = false;
 
+    //设置图片
     public void setImage(Image[][] images) {
         this.images = images;
         if (images[0][0] != null) {
@@ -31,6 +32,7 @@ public abstract class AbstractSprite implements IShowable {
         }
     }
 
+    //设置监听器
     public void setOnMoveListener(OnMoveListener onMoveListener) {
         this.onMoveListener = onMoveListener;
     }
@@ -68,20 +70,24 @@ public abstract class AbstractSprite implements IShowable {
         return y;
     }
 
+    //设置当前位置，以方块为单位
     public void setPosition(int x, int y) {
         int tileSize = Config.getInstance().getTileSize();
 
         this.x = x;
         this.y = y;
 
+        //设置以图片的中心点在方块的中心上
         imageView.setLayoutX(tileSize * x + tileSize / 2 - imageCenterX);
         imageView.setLayoutY(tileSize * y + tileSize / 2 - imageCenterY);
     }
 
+    //设置当前方向
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    //设置图片中心点
     public void setImageCenterY(int imageCenterY) {
         this.imageCenterY = imageCenterY;
     }
@@ -90,6 +96,7 @@ public abstract class AbstractSprite implements IShowable {
         this.imageCenterX = imageCenterX;
     }
 
+    //碰撞检测，检测当前精灵与另一个精灵的碰撞
     public boolean hitTest(AbstractSprite sprite) {
         if (this.x == sprite.x && this.y == sprite.y) {
             return true;
@@ -105,6 +112,7 @@ public abstract class AbstractSprite implements IShowable {
         return alive;
     }
 
+    //设置其生命
     public void setAlive(boolean alive) {
         this.alive = alive;
     }

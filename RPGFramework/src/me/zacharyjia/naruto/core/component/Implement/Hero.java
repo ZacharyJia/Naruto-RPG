@@ -19,6 +19,8 @@ import tiled.core.TileLayer;
 import java.util.Properties;
 
 /**
+ * 英雄
+ * 可控制，可战斗
  * Created by jia19 on 2016/3/11.
  */
 public abstract class Hero extends AbstractSprite {
@@ -39,8 +41,12 @@ public abstract class Hero extends AbstractSprite {
         }
         setImage(images);
         this.scene = scene;
-        maskLayer = scene.getMap().getMaskLayer();
-        entryLayer = scene.getMap().getEntryLayer();
+        if (scene.getMap() != null) {
+            maskLayer = scene.getMap().getMaskLayer();
+            entryLayer = scene.getMap().getEntryLayer();
+        }
+
+        //四方向切换动画
         timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
             if(currentImageIndex == 4) currentImageIndex = 0;
             switch (direction) {
@@ -160,5 +166,11 @@ public abstract class Hero extends AbstractSprite {
                 imageView.setImage(images[2][0]);
                 break;
         }
+    }
+
+    public void setScene(NScene scene) {
+        this.scene = scene;
+        this.entryLayer = scene.getMap().getEntryLayer();
+        this.maskLayer = scene.getMap().getMaskLayer();
     }
 }

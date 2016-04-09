@@ -1,68 +1,53 @@
 package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
+import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Intent;
-import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
+import me.zacharyjia.naruto.game.Model.Impl.Monster;
+import me.zacharyjia.naruto.game.Model.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.game.Model.HeroFactory;
+import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
-import me.zacharyjia.naruto.game.Model.Impl.Monster;
+import me.zacharyjia.naruto.game.Model.Impl.RecoverSkill;
 import me.zacharyjia.naruto.game.Model.MonsterPool;
 import me.zacharyjia.naruto.game.components.InfoHub;
-import me.zacharyjia.naruto.game.utils.NPCLoader;
-import tiled.core.ObjectGroup;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Random;
 
 /**
- * 村子场景1
- * Created by jia19 on 2016/3/21.
+ * 木叶村外场景
+ * Created by jia19 on 2016/4/9.
  */
-public class VilliageScene extends NScene {
+public class OutsideScene extends NScene {
 
-    private InfoHub infoHub;
     private Hero hero;
+    private InfoHub infoHub;
+    private Random random;
 
     @Override
     public void init() {
 
-        IMap map = MapReader.readMap("/res/map/village.tmx");
+        random = new Random(System.currentTimeMillis());
+        //加载地图
+        IMap map = MapReader.readMap("/res/map/outside.tmx");
         setMap(map);
 
-        Intent intent = getIntent();
-        //初始化主角
-        hero = (Hero) intent.getExtra("hero", null);
-        hero.setPosition(13, 23);
+        hero = (Hero) getIntent().getExtra("hero", null);
+        if (hero == null) {
+            return;
+        }
+
         hero.setScene(this);
+        hero.show();
         addShowable(hero);
-
-
-        //初始化NPC
-        ObjectGroup objects = (ObjectGroup) map.getUserLayer("npc");
-        NPC npc = NPCLoader.loadFromObject(objects.iterator().next());
-        npc.startMove();
-        npc.setImageCenterY(66);
-        addShowable(npc);
-
-        //碰撞检测
-        hero.setOnMoveListener(((x, y) -> {
-            if (hero.hitTest(npc)) {
-                ArrayList<String> list = new ArrayList<String>();
-                list.add("卡卡西老师：我今天又在人生的道路上迷失了...");
-                list.add("鸣人：......");
-                list.add("卡卡西老师：鸣人你要去哪？");
-                list.add("鸣人：我要去村子里接任务");
-
-                TalkSequence.getInstance()
-                        .setTalkList(list)
-                        .start(this);
-            }
-        }));
 
 
         // 方向键检测
@@ -84,21 +69,31 @@ public class VilliageScene extends NScene {
                 hero.setDirection(Direction.RIGHT);
                 hero.move(1, 0);
             }
+
+            //随机产生怪物
+            /*
+            if (keyCode.isArrowKey()) {
+                if (random.nextInt(100) < 10) {
+                    Intent intent = new Intent(BattleScene.class);
+                    intent.putExtra("hero", hero);
+                    Monster monster = MonsterPool.getInstance().getRandomMonster(50, 100);
+                    intent.putExtra("monster", monster);
+                    startScene(intent);
+                }
+            }*/
+
         });
 
         // 入口监听事件
         hero.setOnEntryListener(entry -> {
             Properties properties = entry.getProperties();
             String entryName = properties.getProperty("name");
-            if ("house".equals(entryName)) {
-                Intent intent1 = new Intent(HotelScene.class);
-                startScene(intent1);
-            }
-            else if ("outside".equals(entryName)) {
-                Intent intent1 = new Intent(OutsideScene.class);
-                hero.setPosition(14, 3);
-                intent1.putExtra("hero", hero);
-                SceneManager.getInstance().switchScene(intent1);
+            if ("village".equals(entryName)) {
+                Intent intent2 = new Intent(VilliageScene.class);
+                intent2.putExtra("hero", hero);
+                hero.setPosition(13, 23);
+                SceneManager.getInstance().switchScene(intent2);
+                System.out.println("Enter village!");
             }
         });
 
@@ -112,26 +107,31 @@ public class VilliageScene extends NScene {
         infoHub.setHasChakra(true);
 
         this.addNode(infoHub);
-
-
-    }
-
-    @Override
-    public void showFinish() {
-        super.showFinish();
-
-        //开始对话
-        ArrayList<String> list = new ArrayList<>();
-        list.add("木叶村");
-
-        TalkSequence.getInstance().setTalkList(list);
-        TalkSequence.getInstance().start(this);
-
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         hero.bindInfoHub(infoHub);
+
+        if (!hero.isAlive()) {
+            Intent intent = new Intent(StartScene.class);
+            SceneManager.getInstance().switchScene(intent);
+        }
+    }
+
+    @Override
+    public void showFinish() {
+        ArrayList<String> list = new ArrayList<>();
+        if (Config.getInstance().isFirst()) {
+            list.add("欢迎来到火影的世界……");
+            list.add("这是一片充满了危险的土地");
+            list.add("希望你能够活下去……");
+            Config.getInstance().setFirst(false);
+        }
+        list.add("木叶村外");
+
+        TalkSequence.getInstance().setTalkList(list);
+        TalkSequence.getInstance().start(this);
+
     }
 }

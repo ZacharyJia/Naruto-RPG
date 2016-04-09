@@ -18,22 +18,15 @@ public class Controller implements Initializable {
 
     @Override
     public final void initialize(URL location, ResourceBundle resources) {
-
+        //初始化窗体管理器
         SceneManager.getInstance().init(pane, canvas);
         TalkBox.getInstance().setPane(pane);
         start();
-
-        /*
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.ORANGERED);
-        Font font = new Font("微软雅黑", 72);
-        gc.setFont(font);
-        gc.fillText("火影传说", 370, 200);
-        */
     }
 
     public void start() {
 
+        //通过配置文件启动第一个窗体
         Config config = Config.getInstance();
         try {
             Class startClass = Class.forName(config.getStartScene());

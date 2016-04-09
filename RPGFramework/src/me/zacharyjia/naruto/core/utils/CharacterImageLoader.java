@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
+ * 角色图片加载工具
+ * 用于加载4*4方向角色图，主要用于NPC和主角Hero
+ *
  * Created by jia19 on 2016/3/10.
  */
 public class CharacterImageLoader {

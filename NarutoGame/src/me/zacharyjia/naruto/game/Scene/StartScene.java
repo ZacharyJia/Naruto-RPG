@@ -3,14 +3,20 @@ package me.zacharyjia.naruto.game.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
+import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
-import me.zacharyjia.naruto.game.components.InfoHub;
+import me.zacharyjia.naruto.game.Model.HeroFactory;
+import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
+import me.zacharyjia.naruto.game.Model.Impl.Hero;
+import me.zacharyjia.naruto.game.Model.Impl.RecoverSkill;
+import me.zacharyjia.naruto.game.Model.Interface.SpriteFactory;
 
 /**
+ * 游戏初始画面
  * Created by jia19 on 2016/3/21.
  */
 public class StartScene extends NScene {
@@ -38,8 +44,30 @@ public class StartScene extends NScene {
 
 
         btn_start.setOnMouseClicked(event -> {
-            Intent intent = new Intent(VilliageScene.class);
-            intent.putExtra("key", "Hello!!!");
+            Config.getInstance().setFirst(true);
+
+            //初始化主角
+            SpriteFactory factory = new HeroFactory();
+            Hero hero = (Hero)factory.createSprite(this, "/res/characters/naruto.png");
+            hero.setName("漩涡鸣人");
+
+            AttackSkill skill = new AttackSkill();
+            skill.setName("物理攻击");
+            skill.setAttackValue(20);
+            skill.setCost(10);
+            hero.setSkill(1, skill);
+
+            RecoverSkill recoverSkill = new RecoverSkill();
+            recoverSkill.setChakraValue(20);
+            recoverSkill.setLifeValue(20);
+            recoverSkill.setName("回复忍术");
+            hero.setSkill(0, recoverSkill);
+
+            hero.setImageCenterY(66);
+            hero.setPosition(13, 23);
+
+            Intent intent = new Intent(OutsideScene.class);
+            intent.putExtra("hero", hero);
             SceneManager.getInstance().pushScene(intent);
         });
 

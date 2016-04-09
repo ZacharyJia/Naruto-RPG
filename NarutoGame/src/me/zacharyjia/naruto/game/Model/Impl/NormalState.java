@@ -5,6 +5,7 @@ import me.zacharyjia.naruto.game.Model.Interface.ISkill;
 import me.zacharyjia.naruto.game.Model.Interface.IState;
 
 /**
+ * 正常状态
  * Created by jia19 on 2016/4/8.
  */
 public class NormalState implements IState {

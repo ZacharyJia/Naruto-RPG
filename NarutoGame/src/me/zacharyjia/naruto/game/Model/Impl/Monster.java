@@ -53,7 +53,7 @@ public class Monster extends me.zacharyjia.naruto.core.component.Implement.Monst
 
         attackAnimation.setOnFinished(event-> {
             if (listener != null) {
-                listener.onAttackFinish();
+                listener.onSkillFinish();
             }
         });
     }

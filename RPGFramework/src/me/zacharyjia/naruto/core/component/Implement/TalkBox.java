@@ -14,6 +14,8 @@ import me.zacharyjia.naruto.core.Exception.PaneNullException;
 import me.zacharyjia.naruto.core.event.Interface.OnMouseClickListener;
 
 /**
+ * 聊天框组件
+ * 用于显示聊天内容
  * Created by jia19 on 2016/3/21.
  */
 public class TalkBox {
@@ -28,6 +30,7 @@ public class TalkBox {
     private Config config = Config.getInstance();
 
     private TalkBox(){
+        //初始化，设置颜色、字体、位置等
         Paint paint = Color.rgb(102, 153, 255, 0.8);
         label.setBackground(new Background(new BackgroundFill(paint, null, null)));
         label.setFont(new Font(24));
@@ -42,6 +45,7 @@ public class TalkBox {
         this.pane = pane;
     }
 
+    //单例实现
     public static TalkBox getInstance() {
         if (instance == null) {
             synchronized (TalkBox.class) {
@@ -55,6 +59,7 @@ public class TalkBox {
     }
 
 
+    //显示聊天框
     public void show(String text) {
         if (pane != null) {
             label.setText(text);
@@ -65,6 +70,7 @@ public class TalkBox {
         }
     }
 
+    //设置鼠标点击事件
     public void setOnMouseClickListener(OnMouseClickListener listener) {
         this.listener = listener;
         label.setOnMouseClicked(event -> {
@@ -72,6 +78,7 @@ public class TalkBox {
         });
     }
 
+    //隐藏聊天框
     public void hide() {
         if (pane != null) {
             pane.getChildren().remove(label);

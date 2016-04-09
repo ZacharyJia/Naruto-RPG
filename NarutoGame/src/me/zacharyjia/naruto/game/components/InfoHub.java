@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import me.zacharyjia.naruto.game.Model.Interface.InfoShowable;
 
 /**
+ * 主角或怪物信息显示板
+ * 用来显示名称、生命、查克拉
  * Created by jia19 on 2016/4/8.
  */
 public class InfoHub extends Label {
@@ -23,6 +25,7 @@ public class InfoHub extends Label {
     private int fullChakra;
 
     public InfoHub() {
+        //初始化数据
         Paint paint = Color.rgb(102, 153, 255, 0.8);
         this.setBackground(new Background(new BackgroundFill(paint, null, null)));
         this.setTextFill(Color.WHITE);
@@ -34,6 +37,7 @@ public class InfoHub extends Label {
     }
 
     public void updateDisplay() {
+        //更新显示数据
         StringBuilder builder = new StringBuilder();
         builder.append(name)
                 .append("\n");
@@ -111,6 +115,7 @@ public class InfoHub extends Label {
         updateDisplay();
     }
 
+    //通过观察者模式，当出现变化时，自动通知
     public void notifyChanged(InfoShowable sprite) {
         this.life = sprite.getLife();
         this.chakra = sprite.getChakra();

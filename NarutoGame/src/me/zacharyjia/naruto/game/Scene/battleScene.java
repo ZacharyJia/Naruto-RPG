@@ -7,17 +7,14 @@ import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
-import me.zacharyjia.naruto.core.event.Interface.OnTalkSequenceFinishListener;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
-import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
 import me.zacharyjia.naruto.game.components.InfoHub;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jia19 on 2016/3/31.
@@ -92,7 +89,7 @@ public class BattleScene extends NScene {
             btn_skills[i].setLayoutY(350 + i * 50);
             final int finalI = i;
             btn_skills[i].setOnMouseClicked(event -> {
-                diableButtons();
+                disableButtons();
                 hero.useSkill(monster, skills[finalI], ()->{
                     if (!monster.isAlive()) {
                         list.clear();
@@ -129,7 +126,7 @@ public class BattleScene extends NScene {
         monster.setPosition(monsterOriginX, monsterOriginY);
         this.finish();
     }
-   protected void diableButtons() {
+   protected void disableButtons() {
        for (Button btn : btn_skills) {
            btn.setDisable(true);
        }

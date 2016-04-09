@@ -9,6 +9,9 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
+ * 资源加载器
+ * 用于通过从Jar包中获取指定文件的输入流
+ *
  * Created by jia19 on 2016/3/21.
  */
 public class ResourcesLoader {

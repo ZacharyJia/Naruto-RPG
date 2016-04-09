@@ -107,5 +107,15 @@
             <property name="name" value="house" />
         </properties>
     </object>
+    <object id="1" x="13" y="23">
+        <properties>
+            <property name="name" value="outside" />
+        </properties>
+    </object>
+    <object id="2" x="13" y="23">
+        <properties>
+            <property name="name" value="outside" />
+        </properties>
+    </object>
  </objectgroup>
 </map>

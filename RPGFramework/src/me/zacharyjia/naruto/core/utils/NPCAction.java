@@ -3,6 +3,8 @@ package me.zacharyjia.naruto.core.utils;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 
 /**
+ * NPC的动作标识
+ *
  * Created by jia19 on 2016/3/30.
  */
 public class NPCAction {
