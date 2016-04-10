@@ -12,10 +12,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         //启动窗体
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
-        primaryStage.setTitle("火影传说");
-        Scene scene = new Scene(root, 1024, 768);
+        Config config = Config.getInstance();
+        primaryStage.setTitle(config.getGameName());
+        Scene scene = new Scene(root, config.getWindowWidth(), config.getWindowHeight());
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 

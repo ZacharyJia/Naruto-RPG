@@ -2,8 +2,13 @@ package me.zacharyjia.naruto;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.TalkBox;
 import me.zacharyjia.naruto.core.scene.SceneManager;
@@ -21,6 +26,7 @@ public class Controller implements Initializable {
         //初始化窗体管理器
         SceneManager.getInstance().init(pane, canvas);
         TalkBox.getInstance().setPane(pane);
+        pane.setPadding(new Insets(0,0,0,0));
         start();
     }
 
@@ -35,6 +41,7 @@ public class Controller implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
 
     }
 }

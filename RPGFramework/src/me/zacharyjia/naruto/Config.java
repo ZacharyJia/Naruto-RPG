@@ -15,11 +15,12 @@ public class Config {
 
     private static Config instance = null;
 
-    private int mapWidth = 32;
-    private int mapHeight = 24;
-    private int tileSize = 32;
-    private int windowWidth = 1024;
-    private int windowHeight = 768;
+    private String gameName;
+    private int mapWidth;
+    private int mapHeight;
+    private int tileSize;
+    private int windowWidth;
+    private int windowHeight;
     private boolean isFirst = true;
 
     private String startScene = "me.zacharyjia.naruto.game.StartScene";
@@ -43,12 +44,13 @@ public class Config {
             //读取配置信息
             InputStream is = ResourcesLoader.getInputStream("/config.properties");
             properties.load(is);
-            mapWidth = Integer.parseInt(properties.getProperty("mapWidth", "32"));
-            mapHeight = Integer.parseInt(properties.getProperty("mapHeight", "24"));
-            tileSize = Integer.parseInt(properties.getProperty("tileSize", "32"));
-            windowWidth = Integer.parseInt(properties.getProperty("windowWidth", "1024"));
-            windowHeight = Integer.parseInt(properties.getProperty("windowHeight", "768"));
+            mapWidth = Integer.parseInt(properties.getProperty("mapWidth"));
+            mapHeight = Integer.parseInt(properties.getProperty("mapHeight"));
+            tileSize = Integer.parseInt(properties.getProperty("tileSize"));
+            windowWidth = Integer.parseInt(properties.getProperty("windowWidth"));
+            windowHeight = Integer.parseInt(properties.getProperty("windowHeight"));
             startScene = properties.getProperty("startScene");//启动场景
+            gameName = properties.getProperty("gameName");
         } catch (ResourcesNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -86,5 +88,9 @@ public class Config {
 
     public void setFirst(boolean first) {
         isFirst = first;
+    }
+
+    public String getGameName() {
+        return gameName;
     }
 }
