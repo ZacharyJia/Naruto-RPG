@@ -1,6 +1,7 @@
 package me.zacharyjia.naruto.game.Model.Impl;
 
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
+import me.zacharyjia.naruto.game.utils.SoundManager;
 
 /**
  * 恢复性技能
@@ -10,6 +11,8 @@ public class RecoverSkill extends ISkill {
 
     private int lifeValue;
     private int chakraValue;
+
+    private String soundFile = "/res/sound/recover.wav";
 
     public int getChakraValue() {
         return chakraValue;
@@ -25,5 +28,10 @@ public class RecoverSkill extends ISkill {
 
     public void setLifeValue(int lifeValue) {
         this.lifeValue = lifeValue;
+    }
+
+    @Override
+    public void playSound() {
+        SoundManager.play(soundFile);
     }
 }

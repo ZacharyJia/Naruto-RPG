@@ -2,6 +2,7 @@ package me.zacharyjia.naruto.game.Model.Impl;
 
 
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
+import me.zacharyjia.naruto.game.utils.SoundManager;
 
 /**
  * 攻击型技能
@@ -11,6 +12,8 @@ public class AttackSkill extends ISkill {
 
     private int attackValue;
     private int cost;
+
+    private String soundFile = "/res/sound/attack.wav";
 
     public int getAttackValue() {
         return attackValue;
@@ -26,5 +29,14 @@ public class AttackSkill extends ISkill {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public void playSound() {
+        SoundManager.play(soundFile);
+    }
+
+    public void setSoundFile(String soundFile) {
+        this.soundFile = soundFile;
     }
 }

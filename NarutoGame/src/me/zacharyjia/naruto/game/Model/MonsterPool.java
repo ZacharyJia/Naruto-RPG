@@ -64,6 +64,7 @@ public class MonsterPool {
         int attackValue = random.nextInt(15) + 5;
         monster.setAttackValue(attackValue);
         monster.setAlive(true);
+        monster.setSoundFile("/res/sound/attack.wav");
         return monster;
     }
 }

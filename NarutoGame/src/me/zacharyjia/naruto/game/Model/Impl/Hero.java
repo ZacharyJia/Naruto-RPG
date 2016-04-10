@@ -10,6 +10,7 @@ import me.zacharyjia.naruto.game.Model.Interface.ISkill;
 import me.zacharyjia.naruto.game.Model.Interface.IState;
 import me.zacharyjia.naruto.game.Model.Interface.InfoShowable;
 import me.zacharyjia.naruto.game.components.InfoHub;
+import me.zacharyjia.naruto.game.utils.SoundManager;
 
 /**
  * Created by jia19 on 2016/3/31.
@@ -70,6 +71,7 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
     }
 
     public void useSkill(Monster target, ISkill skill, OnSkillFinishListener listener) {
+        skill.playSound();
         if (skill instanceof AttackSkill) {
             AttackSkill aSkill = (AttackSkill) skill;
             if (aSkill.getCost() <= this.chakra) {
@@ -85,7 +87,7 @@ public class Hero extends me.zacharyjia.naruto.core.component.Implement.Hero imp
     }
     public void attacked(int value, OnSkillFinishListener listener) {
         left = true;
-        attackAnimation.setCycleCount(6);
+        attackAnimation.setCycleCount(10);
         attackAnimation.play();
 
         int life = this.life - value;

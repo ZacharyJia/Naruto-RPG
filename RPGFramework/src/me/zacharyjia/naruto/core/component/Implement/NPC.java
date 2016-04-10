@@ -139,6 +139,8 @@ public abstract class NPC extends AbstractSprite {
         }
         setPosition(x, y);
 
+        super.move(x, y);
+
     }
 
     @Override

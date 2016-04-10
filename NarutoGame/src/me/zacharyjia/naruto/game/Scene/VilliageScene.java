@@ -119,6 +119,23 @@ public class VilliageScene extends NScene {
                 intent1.putExtra("hero", hero);
                 SceneManager.getInstance().switchScene(intent1);
             }
+            else if ("hall".equals(entryName)) {
+                Intent intent1 = new Intent(HallScene.class);
+                hero.setPosition(15, 23);
+                intent1.putExtra("hero", hero);
+                startScene(intent1);
+            }
+            else if ("lib".equals(entryName)) {
+                Intent intent1 = new Intent(LibScene.class);
+                hero.setPosition(15, 23);
+                intent1.putExtra("hero", hero);
+                startScene(intent1);
+            } else if ("lock".equals(entryName)) {
+                ArrayList<String> list = new ArrayList<String>();
+                list.add("门上锁了……");
+                TalkSequence.getInstance().setTalkList(list);
+                TalkSequence.getInstance().start(this);
+            }
         });
     }
 

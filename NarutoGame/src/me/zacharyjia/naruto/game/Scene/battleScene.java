@@ -2,6 +2,7 @@ package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
 import me.zacharyjia.naruto.core.Intent;
@@ -9,10 +10,12 @@ import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
+import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
 import me.zacharyjia.naruto.game.components.InfoHub;
+import me.zacharyjia.naruto.game.utils.SoundManager;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,8 @@ public class BattleScene extends NScene {
     private ArrayList<String> list = new ArrayList<>();
     private Button btn_skills[] = new Button[3];
     ISkill[] skills;
+
+    private ImageView leftBlood, rightBlood;
 
     @Override
     public void init() {
@@ -59,6 +64,23 @@ public class BattleScene extends NScene {
 
         hero.setPosition(22, 13);
         monster.setPosition(8, 13);
+        try {
+            Image bloodImg = new Image(ResourcesLoader.getInputStream("/res/image/blood.png"));
+            leftBlood = new ImageView(bloodImg);
+            rightBlood = new ImageView(bloodImg);
+            leftBlood.setLayoutX(monster.getImageView().getLayoutX());
+            leftBlood.setLayoutY(monster.getImageView().getLayoutY());
+            rightBlood.setLayoutX(hero.getImageView().getLayoutX());
+            rightBlood.setLayoutY(hero.getImageView().getLayoutY());
+            leftBlood.setVisible(false);
+            rightBlood.setVisible(false);
+            addNode(leftBlood);
+            addNode(rightBlood);
+
+        } catch (ResourcesNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         //用户信息HUB显示设置
         InfoHub heroHub = new InfoHub();
@@ -90,9 +112,15 @@ public class BattleScene extends NScene {
             final int finalI = i;
             btn_skills[i].setOnMouseClicked(event -> {
                 disableButtons();
+                if (skills[finalI] instanceof AttackSkill) {
+                    leftBlood.setVisible(true);
+                }
                 hero.useSkill(monster, skills[finalI], ()->{
+                    leftBlood.setVisible(false);
                     if (!monster.isAlive()) {
+                        SoundManager.play("/res/sound/success.wav");
                         list.clear();
+                        SoundManager.stopBackgroundMusic();
                         list.add("恭喜你取得胜利！");
                         talkSequence.setTalkList(list);
                         talkSequence.start(this);
@@ -100,9 +128,17 @@ public class BattleScene extends NScene {
                     }
                     else
                     {
+                        rightBlood.setVisible(true);
+                        String soundFile = monster.getSoundFile();
+                        if (soundFile != null) {
+                            SoundManager.play(soundFile);
+                        }
                         monster.attack(hero, monster.getAttackValue(), ()->{
+                            rightBlood.setVisible(false);
                             if (!hero.isAlive()) {
                                 list.clear();
+                                SoundManager.stopBackgroundMusic();
+                                SoundManager.play("/res/sound/fail.wav");
                                 list.add("十年生死两茫茫，不思量自难忘");
                                 talkSequence.setTalkList(list);
                                 talkSequence.setOnTalkSequenceFinishListener(this::battleFinish);
@@ -117,7 +153,10 @@ public class BattleScene extends NScene {
             });
             addNode(btn_skills[i]);
         }
+        disableButtons();
+        enableButtons();
     }
+
 
 
     private void battleFinish()
@@ -125,17 +164,25 @@ public class BattleScene extends NScene {
         hero.setPosition(heroOriginX, heroOriginY);
         monster.setPosition(monsterOriginX, monsterOriginY);
         this.finish();
+        SoundManager.startBackgroundMusic();
     }
-   protected void disableButtons() {
-       for (Button btn : btn_skills) {
+    protected void disableButtons() {
+        for (Button btn : btn_skills) {
            btn.setDisable(true);
-       }
-   }
+        }
+    }
 
     protected void enableButtons() {
         for (int i = 0; i < btn_skills.length; i++) {
             if (skills[i] != null) {
-                btn_skills[i].setDisable(false);
+                if (skills[i] instanceof AttackSkill) {
+                    if (((AttackSkill) skills[i]).getCost() <= hero.getChakra()) {
+                        btn_skills[i].setDisable(false);
+                    }
+                }
+                else {
+                    btn_skills[i].setDisable(false);
+                }
             }
 
         }

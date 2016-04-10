@@ -14,6 +14,7 @@ import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.RecoverSkill;
 import me.zacharyjia.naruto.game.Model.Interface.SpriteFactory;
+import me.zacharyjia.naruto.game.utils.SoundManager;
 
 /**
  * 游戏初始画面
@@ -52,8 +53,8 @@ public class StartScene extends NScene {
             hero.setName("漩涡鸣人");
 
             AttackSkill attackSkill = new AttackSkill();
-            attackSkill.setName("王八拳");
-            attackSkill.setAttackValue(20);
+            attackSkill.setName("普通攻击");
+            attackSkill.setAttackValue(10);
             attackSkill.setCost(0);
             hero.setSkill(1, attackSkill);
 
@@ -65,6 +66,7 @@ public class StartScene extends NScene {
 
             AttackSkill skill  = new AttackSkill();
             skill.setName("螺旋丸");
+            skill.setSoundFile("/res/sound/luoxuanwan.wav");
             skill.setAttackValue(20);
             skill.setCost(40);
             hero.setSkill(2, skill);
@@ -79,6 +81,9 @@ public class StartScene extends NScene {
         });
 
         btn_exit.setOnMouseClicked(event -> System.exit(0));
+
+        SoundManager.setBackground("/res/sound/backgroud.wav");
+        SoundManager.startBackgroundMusic();
 
     }
 }

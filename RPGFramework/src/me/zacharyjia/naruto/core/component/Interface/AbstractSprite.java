@@ -52,7 +52,11 @@ public abstract class AbstractSprite implements IShowable {
         return this.imageView;
     }
 
-    public void move(int offsetX, int offsetY){}
+    public void move(int offsetX, int offsetY) {
+        if (this.onMoveListener != null) {
+            this.onMoveListener.onMove(x, y);
+        }
+    }
 
     public void pause() {
         isMove = false;

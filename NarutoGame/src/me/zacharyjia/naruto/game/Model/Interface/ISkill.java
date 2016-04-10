@@ -17,4 +17,6 @@ public abstract class ISkill {
     public void setName(String name) {
         this.name = name;
     }
+
+    public abstract void playSound();
 }

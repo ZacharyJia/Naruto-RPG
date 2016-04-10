@@ -117,5 +117,20 @@
             <property name="name" value="outside" />
         </properties>
     </object>
+    <object id="2" x="13" y="9">
+        <properties>
+            <property name="name" value="hall" />
+        </properties>
+    </object>
+    <object id="2" x="7" y="16">
+        <properties>
+            <property name="name" value="lib" />
+        </properties>
+    </object>
+    <object id="2" x="28" y="17">
+        <properties>
+            <property name="name" value="lock" />
+        </properties>
+    </object>
  </objectgroup>
 </map>

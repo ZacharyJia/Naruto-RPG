@@ -130,9 +130,7 @@ public abstract class Hero extends AbstractSprite {
             }
         }
 
-        if (onMoveListener != null) {
-            onMoveListener.onMove(x, y);
-        }
+        super.move(x, y);
 
     }
 

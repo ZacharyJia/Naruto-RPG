@@ -18,6 +18,8 @@ public class Monster extends me.zacharyjia.naruto.core.component.Implement.Monst
 
     private int attackValue;
 
+    private String soundFile;
+
     private InfoHub infoHub = null;
 
     private boolean left = true;
@@ -41,7 +43,7 @@ public class Monster extends me.zacharyjia.naruto.core.component.Implement.Monst
 
     public void attacked(int value, OnSkillFinishListener listener) {
         left = true;
-        attackAnimation.setCycleCount(6);
+        attackAnimation.setCycleCount(10);
         attackAnimation.play();
 
         int life = this.life - value;
@@ -121,5 +123,11 @@ public class Monster extends me.zacharyjia.naruto.core.component.Implement.Monst
         this.attackValue = attackValue;
     }
 
+    public String getSoundFile() {
+        return soundFile;
+    }
 
+    public void setSoundFile(String soundFile) {
+        this.soundFile = soundFile;
+    }
 }
