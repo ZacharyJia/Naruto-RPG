@@ -82,60 +82,6 @@ public abstract class Hero extends AbstractSprite {
     }
 
     @Override
-    public void move(int offsetX, int offsetY) {
-        isMove = true;
-
-        int mapWidth = Config.getInstance().getMapWidth();
-        int mapHeight = Config.getInstance().getMapHeight();
-        int tileSize = Config.getInstance().getTileSize();
-
-        int originX = x;
-        int originY = y;
-        x += offsetX;
-        y += offsetY;
-
-        //边界判断
-        if (x >= mapWidth) {
-            x = mapWidth - 1;
-        }
-        else if (x < 0) {
-            x = 0;
-        }
-
-        if (y >= mapHeight) {
-            y = mapHeight - 1;
-        }
-        else if (y < 0) {
-            y = 0;
-        }
-
-        //遮罩层判断
-        if (maskLayer != null) {
-            if(maskLayer.getTileAt(x, y) == null){
-                x = originX;
-                y = originY;
-            }
-        }
-        setPosition(x, y);
-
-        if (entryLayer != null) {
-            //entry判断
-            for (MapObject entry : entryLayer) {
-                Properties properties = entry.getProperties();
-                if (x == entry.getX() && y == entry.getY()) {
-                    if (onEntryListener != null) {
-                        onEntryListener.onEntry(entry);
-                    }
-                }
-            }
-        }
-
-        super.move(x, y);
-
-    }
-
-
-    @Override
     public void pauseAnimation() {
         timeline.pause();
     }
@@ -172,5 +118,55 @@ public abstract class Hero extends AbstractSprite {
         this.scene = scene;
         this.entryLayer = scene.getMap().getEntryLayer();
         this.maskLayer = scene.getMap().getMaskLayer();
+    }
+
+    @Override
+    public void borderTest(int offsetX, int offsetY) {
+
+        int mapWidth = Config.getInstance().getMapWidth();
+        int mapHeight = Config.getInstance().getMapHeight();
+
+        x += offsetX;
+        y += offsetY;
+
+        //边界判断
+        if (x >= mapWidth) {
+            x = mapWidth - offsetX;
+        }
+        else if (x < 0) {
+            x = 0;
+        }
+
+        if (y >= mapHeight) {
+            y = mapHeight - offsetY;
+        }
+        else if (y < 0) {
+            y = 0;
+        }
+    }
+
+    @Override
+    public void maskTest(int originX, int originY) {
+        //遮罩层判断
+        if (maskLayer != null) {
+            if(maskLayer.getTileAt(x, y) == null){
+                x = originX;
+                y = originY;
+            }
+        }
+    }
+
+    @Override
+    public void entryTest() {
+        if (entryLayer != null) {
+            //entry判断
+            for (MapObject entry : entryLayer) {
+                if (x == entry.getX() && y == entry.getY()) {
+                    if (onEntryListener != null) {
+                        onEntryListener.onEntry(entry);
+                    }
+                }
+            }
+        }
     }
 }

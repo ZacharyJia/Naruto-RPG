@@ -114,36 +114,6 @@ public abstract class NPC extends AbstractSprite {
     }
 
     @Override
-    public void move(int offsetX, int offsetY) {
-        //运动
-        int mapWidth = Config.getInstance().getMapWidth();
-        int mapHeight = Config.getInstance().getMapHeight();
-        int tileSize = Config.getInstance().getTileSize();
-
-        x += offsetX;
-        y += offsetY;
-
-        //边界判断
-        if (x >= mapWidth) {
-            x = mapWidth - 1;
-        }
-        else if (x < 0) {
-            x = 0;
-        }
-
-        if (y >= mapHeight) {
-            y = mapHeight - 1;
-        }
-        else if (y < 0) {
-            y = 0;
-        }
-        setPosition(x, y);
-
-        super.move(x, y);
-
-    }
-
-    @Override
     public void pauseAnimation() {
         timeline.pause();
         moveTimeline.pause();
@@ -154,5 +124,34 @@ public abstract class NPC extends AbstractSprite {
         timeline.play();
         moveTimeline.play();
     }
+
+    public void borderTest(int offsetX, int offsetY) {
+
+        int mapWidth = Config.getInstance().getMapWidth();
+        int mapHeight = Config.getInstance().getMapHeight();
+
+        x += offsetX;
+        y += offsetY;
+
+        //边界判断
+        if (x >= mapWidth) {
+            x = mapWidth - offsetX;
+        }
+        else if (x < 0) {
+            x = 0;
+        }
+
+        if (y >= mapHeight) {
+            y = mapHeight - offsetY;
+        }
+        else if (y < 0) {
+            y = 0;
+        }
+
+    }
+
+    public void entryTest(){}
+
+    public void maskTest(int originX, int originY){}
 
 }

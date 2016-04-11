@@ -53,6 +53,18 @@ public abstract class AbstractSprite implements IShowable {
     }
 
     public void move(int offsetX, int offsetY) {
+
+        int originX = x;
+        int originY = y;
+
+        borderTest(offsetX, offsetY);
+
+        maskTest(originX, originY);
+
+        setPosition(x, y);
+
+        entryTest();
+
         if (this.onMoveListener != null) {
             this.onMoveListener.onMove(x, y);
         }
@@ -120,4 +132,11 @@ public abstract class AbstractSprite implements IShowable {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+    public abstract void borderTest(int offsetX, int offsetY);
+
+    public abstract void entryTest();
+
+    public abstract void maskTest(int originX, int originY);
+
 }

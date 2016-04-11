@@ -22,6 +22,7 @@ public class Config {
     private int windowWidth;
     private int windowHeight;
     private boolean isFirst = true;
+    private int monsterPercent;
 
     private String startScene = "me.zacharyjia.naruto.game.StartScene";
 
@@ -51,6 +52,7 @@ public class Config {
             windowHeight = Integer.parseInt(properties.getProperty("windowHeight"));
             startScene = properties.getProperty("startScene");//启动场景
             gameName = properties.getProperty("gameName");
+            monsterPercent = Integer.parseInt(properties.getProperty("monsterPercent"));
         } catch (ResourcesNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -92,5 +94,9 @@ public class Config {
 
     public String getGameName() {
         return gameName;
+    }
+
+    public int getMonsterPercent() {
+        return monsterPercent;
     }
 }

@@ -38,6 +38,15 @@ public abstract class Monster extends AbstractSprite {
     public void resumeAnimation() {
     }
 
+    @Override
+    public void borderTest(int offsetX, int offsetY){}
+
+    @Override
+    public void entryTest(){}
+
+    @Override
+    public void maskTest(int originX, int originY){}
+
 
 
 }

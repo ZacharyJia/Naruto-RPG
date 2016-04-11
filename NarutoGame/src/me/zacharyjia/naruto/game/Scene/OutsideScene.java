@@ -110,8 +110,9 @@ public class OutsideScene extends NScene {
 
             //随机产生怪物
 
+            int monsterPercent = Config.getInstance().getMonsterPercent();
             if (keyCode.isArrowKey()) {
-                if (random.nextInt(100) < 10) {
+                if (random.nextInt(100) < monsterPercent) {
                     Intent intent = new Intent(BattleScene.class);
                     intent.putExtra("hero", hero);
                     Monster monster = MonsterPool.getInstance().getRandomMonster(50, 100);
