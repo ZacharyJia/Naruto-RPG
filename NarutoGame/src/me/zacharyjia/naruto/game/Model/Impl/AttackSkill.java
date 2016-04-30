@@ -15,7 +15,8 @@ public class AttackSkill extends ISkill {
 
     private String soundFile = "/res/sound/attack.wav";
 
-    public int getAttackValue() {
+    @Override
+    public int getValue() {
         return attackValue;
     }
 

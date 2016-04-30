@@ -9,5 +9,5 @@ import me.zacharyjia.naruto.core.scene.NScene;
  */
 public interface SpriteFactory {
 
-    public AbstractSprite createSprite(NScene scene, String imgName);
+    AbstractSprite createSprite(NScene scene, String imgName);
 }

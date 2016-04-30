@@ -4,12 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.scene.AbstractIntent;
+import me.zacharyjia.naruto.core.scene.Intent;
 import me.zacharyjia.naruto.core.component.Implement.TalkBox;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 
@@ -32,11 +29,11 @@ public class Controller implements Initializable {
 
     public void start() {
 
-        //通过配置文件启动第一个窗体
+        //通过配置文件启动第一个场景
         Config config = Config.getInstance();
         try {
             Class startClass = Class.forName(config.getStartScene());
-            Intent intent = new Intent(startClass);
+            AbstractIntent intent = new Intent(startClass);
             SceneManager.getInstance().pushScene(intent);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

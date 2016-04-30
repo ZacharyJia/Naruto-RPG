@@ -10,10 +10,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.Config;
-import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
-import me.zacharyjia.naruto.core.event.Interface.*;
 import me.zacharyjia.naruto.core.component.Interface.IShowable;
+import me.zacharyjia.naruto.core.event.Interface.*;
 import tiled.core.Tile;
 import tiled.core.TileLayer;
 
@@ -24,7 +23,7 @@ import java.util.List;
 /**
  * Created by jia19 on 2016/3/14.
  */
-public abstract class NScene {
+public abstract class NScene implements MouseEventSubject, KeyEventSubject {
     //键盘鼠标事件监听器
     private OnKeyDownListener onKeyDownListener = null;
     private OnKeyUpListener onKeyUpListener = null;
@@ -45,7 +44,7 @@ public abstract class NScene {
     private boolean isShow = false;
     private boolean isPause = false;
 
-    private Intent intent = null;
+    private AbstractIntent intent = null;
 
     public abstract void init();
 
@@ -55,11 +54,11 @@ public abstract class NScene {
     //结束场景时调用该方法，待用户实现
     public void onFinish(){}
 
-    public Intent getIntent() {
+    public AbstractIntent getIntent() {
         return intent;
     }
 
-    public void setIntent(Intent intent) {
+    public void setIntent(AbstractIntent intent) {
         this.intent = intent;
     }
 
@@ -217,7 +216,7 @@ public abstract class NScene {
     }
 
     //将场景内的所有可显示内容绘制到屏幕上
-    public void show(Pane pane, Canvas canvas) {
+        public void show(Pane pane, Canvas canvas) {
 
         isShow = true;
 
@@ -248,11 +247,12 @@ public abstract class NScene {
 
     }
 
+
     //当场景从栈中变成栈顶时，调用该方法，待用户实现
     public void onResume() {}
 
     //隐藏该节点
-    public void disappear() {
+    public void onPause() {
         this.pane = null;
         this.canvas = null;
         isShow = false;
@@ -264,7 +264,7 @@ public abstract class NScene {
     }
 
     //启动新的场景，压到栈顶
-    final public void startScene(Intent intent) {
+    final public void startScene(AbstractIntent intent) {
         SceneManager.getInstance().pushScene(intent);
     }
 

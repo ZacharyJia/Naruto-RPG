@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.scene.NScene;
-import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.core.utils.TiledMapReader;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.components.InfoHub;
 
@@ -20,7 +20,7 @@ public class LibScene extends NScene {
     @Override
     public void init() {
 
-        IMap map = MapReader.readMap("/res/map/lib.tmx");
+        IMap map = TiledMapReader.readMap("/res/map/lib.tmx");
         setMap(map);
 
         hero = (Hero) getIntent().getExtra("hero", null);

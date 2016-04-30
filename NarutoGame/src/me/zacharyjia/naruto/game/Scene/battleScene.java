@@ -4,8 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import me.zacharyjia.naruto.core.scene.AbstractIntent;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
-import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.scene.NScene;
@@ -14,6 +14,7 @@ import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
 import me.zacharyjia.naruto.game.Model.Interface.ISkill;
+import me.zacharyjia.naruto.game.Model.MonsterPool;
 import me.zacharyjia.naruto.game.components.InfoHub;
 import me.zacharyjia.naruto.game.utils.SoundManager;
 
@@ -44,7 +45,7 @@ public class BattleScene extends NScene {
             e.printStackTrace();
         }
 
-        Intent intent = getIntent();
+        AbstractIntent intent = getIntent();
         hero = (Hero)intent.getExtra("hero", null);
         monster = (Monster)intent.getExtra("monster", null);
         if (hero == null || monster == null) {
@@ -165,6 +166,7 @@ public class BattleScene extends NScene {
         monster.setPosition(monsterOriginX, monsterOriginY);
         this.finish();
         SoundManager.startBackgroundMusic();
+        MonsterPool.getInstance().releaseMonster(monster);
     }
     protected void disableButtons() {
         for (Button btn : btn_skills) {

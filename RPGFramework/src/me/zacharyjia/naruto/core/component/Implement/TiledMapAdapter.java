@@ -26,6 +26,9 @@ public class TiledMapAdapter implements IMap {
 
     //获取遮罩层
     public TileLayer getMaskLayer() {
+        if(map == null) {
+            return null;
+        }
         for (MapLayer layer : map.getLayers()) {
             if ("mask".equals(layer.getName()) && layer instanceof TileLayer) {
                 return (TileLayer)layer;
@@ -36,6 +39,9 @@ public class TiledMapAdapter implements IMap {
 
     //获取普通地图层
     public List<TileLayer> getLayerList() {
+        if (map == null){
+            return null;
+        }
         List<TileLayer> list = new ArrayList<>();
         for (MapLayer layer: map.getLayers()) {
             if (layer.getName().startsWith("map_") && layer instanceof TileLayer) {
@@ -47,6 +53,9 @@ public class TiledMapAdapter implements IMap {
 
     //获取入口层
     public ObjectGroup getEntryLayer() {
+        if(map == null) {
+            return null;
+        }
         for (MapLayer layer : map.getLayers()) {
             if ("entry".equals(layer.getName()) && layer instanceof ObjectGroup) {
                 return (ObjectGroup)layer;
@@ -57,7 +66,7 @@ public class TiledMapAdapter implements IMap {
 
     //获取用户指定的图层
     public MapLayer getUserLayer(String name) {
-        if (name == null) {
+        if (name == null || map == null) {
             return null;
         }
         for (MapLayer layer : map.getLayers()) {
@@ -71,7 +80,7 @@ public class TiledMapAdapter implements IMap {
     //获取用户指定图层列表
     public List<MapLayer> getUserLayerList(String prefix) {
         List<MapLayer> list = new ArrayList<>();
-        if (prefix == null) {
+        if (prefix == null || map == null) {
             return list;
         }
         for (MapLayer layer: map.getLayers()) {

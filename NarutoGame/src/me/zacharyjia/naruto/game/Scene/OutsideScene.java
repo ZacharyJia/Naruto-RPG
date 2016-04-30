@@ -2,19 +2,15 @@ package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
 import me.zacharyjia.naruto.Config;
-import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.scene.Intent;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.game.Model.Impl.Monster;
-import me.zacharyjia.naruto.game.Model.Interface.SpriteFactory;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
-import me.zacharyjia.naruto.core.utils.MapReader;
-import me.zacharyjia.naruto.game.Model.HeroFactory;
-import me.zacharyjia.naruto.game.Model.Impl.AttackSkill;
+import me.zacharyjia.naruto.core.utils.TiledMapReader;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
-import me.zacharyjia.naruto.game.Model.Impl.RecoverSkill;
 import me.zacharyjia.naruto.game.Model.MonsterPool;
 import me.zacharyjia.naruto.game.components.InfoHub;
 
@@ -37,7 +33,7 @@ public class OutsideScene extends NScene {
 
         random = new Random(System.currentTimeMillis());
         //加载地图
-        IMap map = MapReader.readMap("/res/map/outside.tmx");
+        IMap map = TiledMapReader.readMap("/res/map/outside.tmx");
         setMap(map);
 
         hero = (Hero) getIntent().getExtra("hero", null);

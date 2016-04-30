@@ -17,6 +17,8 @@ public class MonsterPool {
     private static MonsterPool instance;
 
     private ArrayList<Monster> monsters = new ArrayList<>();
+    private Map<Monster, Boolean> used = new HashMap<>();
+
 
     private MonsterPool() {
         try {
@@ -24,14 +26,13 @@ public class MonsterPool {
             Properties properties = new Properties();
             properties.load(is);
             Set<String> names = properties.stringPropertyNames();
-            Iterator<String> it = names.iterator();
-            while (it.hasNext()) {
-                String name = it.next();
+            for (String name : names) {
                 String imgName = properties.getProperty(name);
                 if (imgName != null) {
                     Monster monster = new Monster(imgName);
                     monster.setName(name);
                     monsters.add(monster);
+                    used.put(monster, false);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -56,8 +57,17 @@ public class MonsterPool {
         if (monsters.size() == 0) {
             return null;
         }
-        int index = random.nextInt(monsters.size());
-        Monster monster = monsters.get(index);
+        int index;
+        Monster monster;
+        while(true) {
+            index = random.nextInt(monsters.size());
+            monster = monsters.get(index);
+            if (!used.get(monster))
+            {
+                break;
+            }
+        }
+
         int life = random.nextInt(maxLife - minLife) + minLife;
         monster.setFullLife(life);
         monster.setLife(life);
@@ -66,5 +76,10 @@ public class MonsterPool {
         monster.setAlive(true);
         monster.setSoundFile("/res/sound/attack.wav");
         return monster;
+    }
+
+    public void releaseMonster(Monster monster)
+    {
+        used.put(monster, false);
     }
 }

@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import me.zacharyjia.naruto.Config;
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
-import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.scene.Intent;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
@@ -56,20 +56,19 @@ public class StartScene extends NScene {
             attackSkill.setName("普通攻击");
             attackSkill.setAttackValue(10);
             attackSkill.setCost(0);
-            hero.setSkill(1, attackSkill);
+            hero.set(1, attackSkill);
 
             RecoverSkill recoverSkill = new RecoverSkill();
-            recoverSkill.setChakraValue(20);
-            recoverSkill.setLifeValue(20);
+            recoverSkill.setValue(20);
             recoverSkill.setName("回复忍术");
-            hero.setSkill(0, recoverSkill);
+            hero.set(0, recoverSkill);
 
             AttackSkill skill  = new AttackSkill();
             skill.setName("螺旋丸");
             skill.setSoundFile("/res/sound/luoxuanwan.wav");
             skill.setAttackValue(20);
             skill.setCost(40);
-            hero.setSkill(2, skill);
+            hero.set(2, skill);
 
 
             hero.setImageCenterY(66);

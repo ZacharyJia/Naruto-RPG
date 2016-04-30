@@ -1,14 +1,15 @@
 package me.zacharyjia.naruto.game.Scene;
 
 import javafx.scene.input.KeyCode;
-import me.zacharyjia.naruto.core.Intent;
+import me.zacharyjia.naruto.core.scene.AbstractIntent;
+import me.zacharyjia.naruto.core.scene.Intent;
 import me.zacharyjia.naruto.core.component.Implement.NPC;
 import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.scene.NScene;
 import me.zacharyjia.naruto.core.scene.SceneManager;
-import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.core.utils.TiledMapReader;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.components.InfoHub;
 import me.zacharyjia.naruto.game.utils.NPCLoader;
@@ -30,10 +31,10 @@ public class VilliageScene extends NScene {
     @Override
     public void init() {
 
-        IMap map = MapReader.readMap("/res/map/village.tmx");
+        IMap map = TiledMapReader.readMap("/res/map/village.tmx");
         setMap(map);
 
-        Intent intent = getIntent();
+        AbstractIntent intent = getIntent();
         //初始化主角
         hero = (Hero) intent.getExtra("hero", null);
         if (hero == null) {

@@ -9,26 +9,19 @@ import me.zacharyjia.naruto.game.utils.SoundManager;
  */
 public class RecoverSkill extends ISkill {
 
-    private int lifeValue;
-    private int chakraValue;
+    private int value;
 
     private String soundFile = "/res/sound/recover.wav";
 
-    public int getChakraValue() {
-        return chakraValue;
+    @Override
+    public int getValue() {
+        return value;
     }
 
-    public void setChakraValue(int chakraValue) {
-        this.chakraValue = chakraValue;
+    public void setValue(int chakraValue) {
+        this.value = chakraValue;
     }
 
-    public int getLifeValue() {
-        return lifeValue;
-    }
-
-    public void setLifeValue(int lifeValue) {
-        this.lifeValue = lifeValue;
-    }
 
     @Override
     public void playSound() {

@@ -1,7 +1,6 @@
 package me.zacharyjia.naruto;
 
 import me.zacharyjia.naruto.core.Exception.ResourcesNotFoundException;
-import me.zacharyjia.naruto.core.Intent;
 import me.zacharyjia.naruto.core.utils.ResourcesLoader;
 
 import java.io.IOException;

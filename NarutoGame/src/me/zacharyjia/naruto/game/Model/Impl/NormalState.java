@@ -15,7 +15,7 @@ public class NormalState implements IState {
     @Override
     public void attack(Monster monster, ISkill skill, OnSkillFinishListener listener) {
         if (skill instanceof AttackSkill) {
-            float value = ((AttackSkill) skill).getAttackValue() * factor;
+            float value = skill.getValue() * factor;
             monster.attacked((int)value, listener);
         }
     }

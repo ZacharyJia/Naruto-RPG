@@ -1,16 +1,11 @@
 package me.zacharyjia.naruto.core.scene;
 
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import me.zacharyjia.naruto.core.Exception.CallerIsNotPeekException;
 import me.zacharyjia.naruto.core.Exception.NotSceneClassException;
 import me.zacharyjia.naruto.core.Exception.SceneNullException;
-import me.zacharyjia.naruto.core.Intent;
 
 import java.util.Stack;
 
@@ -21,7 +16,7 @@ import java.util.Stack;
  *
  * Created by jia19 on 2016/3/14.
  */
-public class SceneManager {
+public class SceneManager implements ISceneMediator {
 
     private static SceneManager instance = null;
 
@@ -89,7 +84,7 @@ public class SceneManager {
     }
 
     //创建一个新的场景，将其压到场景栈上
-    public void pushScene(Intent intent) {
+    public void pushScene(AbstractIntent intent) {
 
         //从intent中获取要创建的场景
         Class sceneClass = intent.getTarget();
@@ -109,6 +104,7 @@ public class SceneManager {
             scene.setIntent(intent);
             //调用新场景的初始化方法
             scene.init();
+            scene.onResume();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -121,7 +117,7 @@ public class SceneManager {
 
             if (currentScene != null) {
                 //调用上一个场景的disappear方法
-                currentScene.disappear();
+                currentScene.onPause();
             }
             currentScene = scene;
             //分别调用上一个场景的show方法和showFinish方法
@@ -136,7 +132,7 @@ public class SceneManager {
         if (!caller.equals(sceneStack.peek())) {
             throw new CallerIsNotPeekException("This caller is not the peek scene in scene stack");
         }
-        currentScene.disappear();
+        currentScene.onPause();
         currentScene.onFinish();
         currentScene = null;
         if (!sceneStack.isEmpty()) {
@@ -153,7 +149,7 @@ public class SceneManager {
     }
 
     //切换场景，将当前栈清空后再创建新的场景
-    public void switchScene(Intent intent) {
+    public void switchScene(AbstractIntent intent) {
         sceneStack.clear();
         pushScene(intent);
     }
@@ -164,7 +160,7 @@ public class SceneManager {
             throw new SceneNullException("Scene is null!");
         }
         if (currentScene != null) {
-            currentScene.disappear();
+            currentScene.onPause();
         }
         currentScene = scene;
         scene.show(pane, canvas);

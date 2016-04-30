@@ -14,14 +14,14 @@ import java.util.List;
  */
 public interface IMap {
 
-    public TileLayer getMaskLayer();
+    TileLayer getMaskLayer();
 
-    public List<TileLayer> getLayerList();
+    List<TileLayer> getLayerList();
 
-    public ObjectGroup getEntryLayer();
+    ObjectGroup getEntryLayer();
 
-    public MapLayer getUserLayer(String name);
+    MapLayer getUserLayer(String name);
 
-    public List<MapLayer> getUserLayerList(String prefix);
-    
+    List<MapLayer> getUserLayerList(String prefix);
+
 }

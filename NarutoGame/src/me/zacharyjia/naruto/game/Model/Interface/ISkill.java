@@ -19,4 +19,6 @@ public abstract class ISkill {
     }
 
     public abstract void playSound();
+
+    public abstract int getValue();
 }

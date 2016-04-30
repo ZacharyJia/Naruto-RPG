@@ -6,7 +6,7 @@ import me.zacharyjia.naruto.core.component.Implement.TalkSequence;
 import me.zacharyjia.naruto.core.component.Interface.Direction;
 import me.zacharyjia.naruto.core.component.Interface.IMap;
 import me.zacharyjia.naruto.core.scene.NScene;
-import me.zacharyjia.naruto.core.utils.MapReader;
+import me.zacharyjia.naruto.core.utils.TiledMapReader;
 import me.zacharyjia.naruto.game.Model.Impl.Hero;
 import me.zacharyjia.naruto.game.components.InfoHub;
 import me.zacharyjia.naruto.game.utils.NPCLoader;
@@ -26,7 +26,7 @@ public class HotelScene extends NScene {
     @Override
     public void init() {
 
-        IMap map = MapReader.readMap("/res/map/hotel.tmx");
+        IMap map = TiledMapReader.readMap("/res/map/hotel.tmx");
         setMap(map);
 
         hero = (Hero) getIntent().getExtra("hero", null);
